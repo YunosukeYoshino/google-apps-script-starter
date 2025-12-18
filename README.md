@@ -7,14 +7,9 @@ A starter template for Google Apps Script development with TypeScript, Vite, and
 You can create a new project using `npx`:
 
 ```bash
-npx @yunosukeyoshino/google-apps-script-starter my-gas-project
-```
-
-Or if you prefer a shorter command after it's published:
-
-```bash
 npx create-gas-starter my-gas-project
 ```
+
 
 ## Features
 
