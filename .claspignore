@@ -1,0 +1,12 @@
+# Ignore these files
+node_modules/
+.eslintrc.js
+.prettierrc
+tsconfig.json
+package.json
+package-lock.json
+bun.lock
+.clasp.json
+.claspignore
+README.md
+.git/
