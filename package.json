@@ -1,8 +1,11 @@
 {
-	"name": "clasp",
+	"name": "@yunosukeyoshino/google-apps-script-starter",
 	"version": "1.0.0",
-	"description": "",
+	"description": "A starter template for Google Apps Script development with TypeScript, Vite, and Tailwind CSS.",
 	"main": "index.js",
+	"bin": {
+		"create-gas-starter": "bin/cli.js"
+	},
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",
@@ -15,9 +18,27 @@
 		"format": "biome format --write .",
 		"prepare": "husky"
 	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
+	"files": [
+		"bin/",
+		"src/",
+		".claspignore",
+		"biome.json",
+		"package.json",
+		"README.md",
+		"tsconfig.json",
+		"vite.config.ts",
+		".gitignore"
+	],
+	"keywords": [
+		"google-apps-script",
+		"clasp",
+		"typescript",
+		"vite",
+		"tailwindcss",
+		"starter"
+	],
+	"author": "YunosukeYoshino",
+	"license": "MIT",
 	"type": "commonjs",
 	"devDependencies": {
 		"@biomejs/biome": "2.3.10",

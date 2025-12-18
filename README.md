@@ -1,5 +1,23 @@
 # Google Apps Script Starter
 
+A starter template for Google Apps Script development with TypeScript, Vite, and Tailwind CSS.
+
+## Quick Start
+
+You can create a new project using `npx`:
+
+```bash
+npx @yunosukeyoshino/google-apps-script-starter my-gas-project
+```
+
+Or if you prefer a shorter command after it's published:
+
+```bash
+npx create-gas-starter my-gas-project
+```
+
+## Features
+
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
 [![Vite](https://img.shields.io/badge/Vite-v7.0-646CFF?logo=vite)](https://vitejs.dev/)
 [![Biome](https://img.shields.io/badge/Biome-v2.0-60A5FA?logo=biome)](https://biomejs.dev/)
