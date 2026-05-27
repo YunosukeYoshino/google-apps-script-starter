@@ -1,10 +1,18 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
-const { execSync } = require("child_process");
-const fs = require("fs");
-const path = require("path");
+import { execFileSync } from "node:child_process";
+import fs from "node:fs";
+import path from "node:path";
 
-const projectName = process.argv[2] || "my-gas-project";
+type PackageJson = {
+	name?: string;
+	version?: string;
+	bin?: unknown;
+	files?: unknown;
+	[key: string]: unknown;
+};
+
+const projectName = process.argv[2] ?? "my-gas-project";
 const targetDir = path.resolve(process.cwd(), projectName);
 
 if (fs.existsSync(targetDir)) {
@@ -14,12 +22,9 @@ if (fs.existsSync(targetDir)) {
 
 console.log(`Creating a new Google Apps Script project in ${targetDir}...`);
 
-// Create project directory
-fs.mkdirSync(targetDir, { recursive: true });
-
-// Clone the template repository or copy local files if running from npm
-// For simplicity in this template, we assume the files are included in the npm package
-const templateDir = path.resolve(__dirname, "..");
+// Bun resolves the template root from the current module directory.
+// Source: https://bun.sh/docs/guides/util/import-meta-dir
+const templateDir = path.resolve(import.meta.dir, "..");
 
 const filesToCopy = [
 	"src",
@@ -33,36 +38,40 @@ const filesToCopy = [
 	"tsconfig.json",
 	"vite.config.ts",
 	".gitignore",
-];
+] as const;
 
-filesToCopy.forEach((file) => {
+for (const file of filesToCopy) {
 	const src = path.resolve(templateDir, file);
 	const dest = path.resolve(targetDir, file);
 
-	if (fs.existsSync(src)) {
-		if (fs.lstatSync(src).isDirectory()) {
-			fs.cpSync(src, dest, { recursive: true });
-		} else {
-			fs.copyFileSync(src, dest);
-		}
+	if (!fs.existsSync(src)) {
+		continue;
 	}
-});
 
-// Update package.json name
+	if (fs.lstatSync(src).isDirectory()) {
+		fs.cpSync(src, dest, { recursive: true });
+		continue;
+	}
+
+	fs.copyFileSync(src, dest);
+}
+
 const newPackageJsonPath = path.resolve(targetDir, "package.json");
-const newPackageJson = JSON.parse(fs.readFileSync(newPackageJsonPath, "utf8"));
+const newPackageJson = JSON.parse(
+	fs.readFileSync(newPackageJsonPath, "utf8"),
+) as PackageJson;
 newPackageJson.name = projectName;
 newPackageJson.version = "0.1.0";
-delete newPackageJson.bin; // Remove bin field in the new project
-delete newPackageJson.files; // Remove files field
+delete newPackageJson.bin;
+delete newPackageJson.files;
 fs.writeFileSync(newPackageJsonPath, JSON.stringify(newPackageJson, null, 2));
 
 console.log("Installing dependencies...");
 try {
-	execSync("bun install", { cwd: targetDir, stdio: "inherit" });
-} catch (e) {
+	execFileSync("bun", ["install"], { cwd: targetDir, stdio: "inherit" });
+} catch {
 	console.log("bun not found, falling back to npm...");
-	execSync("npm install", { cwd: targetDir, stdio: "inherit" });
+	execFileSync("npm", ["install"], { cwd: targetDir, stdio: "inherit" });
 }
 
 console.log("\nSuccess! Your project is ready.");

@@ -4,7 +4,7 @@
 	"description": "A starter template for Google Apps Script development with TypeScript, Vite, and Tailwind CSS.",
 	"main": "index.js",
 	"bin": {
-		"create-gas-starter": "bin/cli.js"
+		"create-gas-starter": "bin/cli.ts"
 	},
 	"scripts": {
 		"dev": "vite",
@@ -16,7 +16,15 @@
 		"lint": "biome check .",
 		"lint:fix": "biome check --write .",
 		"format": "biome format --write .",
+		"test:smoke": "bun scripts/smoke-test.ts",
 		"prepare": "husky"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/YunosukeYoshino/google-apps-script-starter.git"
+	},
+	"publishConfig": {
+		"access": "public"
 	},
 	"files": [
 		"bin/",
