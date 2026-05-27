@@ -60,6 +60,18 @@ The project integrates high-performance tools to ensure a robust developer exper
    bunx clasp login
    ```
 
+3. Create a GAS web app project with `rootDir` set to `dist`:
+   ```bash
+   bunx clasp create --type webapp --rootDir ./dist --title "My GAS Web App"
+   ```
+   This writes `.clasp.json` with `"rootDir": "dist"`. clasp 3 does not transpile TypeScript; Vite builds into `dist/` before push.
+   Source: https://github.com/google/clasp/blob/master/README.md#drop-typescript-support
+
+   To configure manually instead, copy the example file and set your `scriptId`:
+   ```bash
+   cp .clasp.json.example .clasp.json
+   ```
+
 ### Development
 
 Start the Vite development server to work on the UI:
@@ -98,6 +110,7 @@ bun run push
 │   ├── main.gs          # Server-side GAS logic
 │   └── appsscript.json  # Manifest file
 ├── dist/                # Optimized build artifacts (Clasp target)
+├── .clasp.json.example  # Example clasp config (rootDir: dist)
 ├── biome.json           # Biome configuration
 ├── vite.config.ts       # Vite build configuration
 └── .clasp.json          # Clasp project settings

@@ -23,6 +23,9 @@ const templateDir = path.resolve(__dirname, "..");
 
 const filesToCopy = [
 	"src",
+	".rules",
+	"AGENTS.md",
+	".clasp.json.example",
 	".claspignore",
 	"biome.json",
 	"package.json",
@@ -64,6 +67,8 @@ try {
 
 console.log("\nSuccess! Your project is ready.");
 console.log(`\n  cd ${projectName}`);
-console.log("  clasp login");
-console.log("  clasp create --type webapp");
+console.log("  bunx clasp login");
+console.log(
+	'  bunx clasp create --type webapp --rootDir ./dist --title "My GAS Web App"',
+);
 console.log("  bun run dev\n");

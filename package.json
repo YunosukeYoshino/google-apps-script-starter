@@ -21,6 +21,9 @@
 	"files": [
 		"bin/",
 		"src/",
+		".rules/",
+		"AGENTS.md",
+		".clasp.json.example",
 		".claspignore",
 		"biome.json",
 		"package.json",
