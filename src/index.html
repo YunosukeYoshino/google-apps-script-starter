@@ -10,7 +10,9 @@
     <main id="root" class="bg-white p-8 rounded-lg shadow-md text-center">
       <h1 class="text-blue-600 text-3xl font-bold mb-4">Hello from Vite!</h1>
       <p class="text-gray-700">This project is built with Vite, Tailwind CSS v4, and clasp.</p>
-      <div id="app"></div>
+      <div id="app">
+      <p class="mt-4 text-sm text-gray-500 font-mono">Server time: <span id="server-time"><?= serverTime ?></span></p>
+      </div>
     </main>
     <script type="module" src="./main.ts"></script>
   </body>
