@@ -2,7 +2,6 @@
 	"name": "@yunosukeyoshino/google-apps-script-starter",
 	"version": "1.0.0",
 	"description": "A starter template for Google Apps Script development with TypeScript, Vite, and Tailwind CSS.",
-	"main": "index.js",
 	"bin": {
 		"create-gas-starter": "bin/cli.ts"
 	},
