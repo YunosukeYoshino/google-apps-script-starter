@@ -4,6 +4,8 @@ The npm source for `create-gas-starter`, a CLI that scaffolds Google Apps Script
 
 ## Usage
 
+> **Prerequisite:** [Bun](https://bun.sh) must be installed. The CLI runs on Bun and requires it at scaffold time.
+
 ```bash
 npx create-gas-starter my-gas-project
 ```
@@ -32,3 +34,12 @@ bun run sample:build
 ```
 
 The runnable browser-to-GAS example is documented in [`sample/README.md`](sample/README.md).
+
+## Contributing
+
+Contributions are welcome! See [`CONTRIBUTING.md`](CONTRIBUTING.md) for setup
+and conventions. Please also read the [Code of Conduct](CODE_OF_CONDUCT.md).
+
+## License
+
+[MIT](LICENSE) © [YunosukeYoshino](https://github.com/YunosukeYoshino)
