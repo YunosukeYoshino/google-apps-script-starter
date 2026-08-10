@@ -1,4 +1,4 @@
-# Project Overview — Vite + clasp + Biome
+# Project Overview — Vite + clasp + Oxc
 
 Google Apps Script (GAS) Webアプリを Vite + TypeScript で開発し、`clasp` でデプロイする構成。
 
@@ -8,7 +8,7 @@ Google Apps Script (GAS) Webアプリを Vite + TypeScript で開発し、`clasp
 | -------- | ------------------------------------------ |
 | Runtime  | Google Apps Script (V8)                    |
 | Frontend | Vite (Vanilla TypeScript), Tailwind CSS v4 |
-| Tooling  | clasp, Biome (Lint/Format), bun            |
+| Tooling  | clasp, Oxlint (Lint), Oxfmt (Format), bun  |
 
 ## ディレクトリ構造
 

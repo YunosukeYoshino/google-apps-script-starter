@@ -55,7 +55,7 @@ bunx --cwd template clasp logs --watch
 
 - Edit `template/src/` for generated app code. Treat `template/dist/` as disposable build output.
 - Keep `doGet`, `doPost`, and spreadsheet-callable GAS functions at top level without `export`.
-- Keep public web apps at `template/src/appsscript.json` with `webapp.access` set to `ANYONE`.
+- Keep public web apps at `template/src/gas/appsscript.json` with `webapp.access` set to `ANYONE`.
 - Use GAS libraries or browser-side CDNs; npm packages do not execute in the GAS runtime.
 - Before direct clasp commands, copy `template/.clasp.json.example` inside `template/`, use the standard clasp configuration filename, and keep its script ID untracked.
 - Validate each logical change before a Conventional Commit. Keep commits local unless the user explicitly requests a push.
