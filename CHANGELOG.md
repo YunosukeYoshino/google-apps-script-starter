@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.2.0](https://github.com/YunosukeYoshino/google-apps-script-starter/compare/v1.1.1...v1.2.0) (2026-08-10)
+
+
+### Features
+
+* add runnable gas web app sample ([3da206e](https://github.com/YunosukeYoshino/google-apps-script-starter/commit/3da206e4ee761f93ea57ab7d72575f510a8c216e))
+* **sample:** React + shadcn/ui (Base UI) 構成へ移行 ([dfc9759](https://github.com/YunosukeYoshino/google-apps-script-starter/commit/dfc975927371b8b6e2da3ce0f95fa621a8aad790))
+* **template:** React + shadcn/ui (Base UI) 構成へ移行 ([2d9159e](https://github.com/YunosukeYoshino/google-apps-script-starter/commit/2d9159e27a0ca49d52f42c7a821b1d66e099a7a1))
+
+
+### Bug Fixes
+
+* force clasp push for untracked files ([2bd8d6f](https://github.com/YunosukeYoshino/google-apps-script-starter/commit/2bd8d6f61f39dc9722dbf6bab4ee57211e19b692))
+* make template and sample bun workspaces to fix CI typecheck ([0d51091](https://github.com/YunosukeYoshino/google-apps-script-starter/commit/0d51091b08b9cbb9ff99ad9af080c44f10af9ddb))
+
 ## [1.1.1](https://github.com/YunosukeYoshino/google-apps-script-starter/compare/v1.1.0...v1.1.1) (2026-08-10)
 
 

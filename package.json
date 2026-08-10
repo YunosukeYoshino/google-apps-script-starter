@@ -1,6 +1,6 @@
 {
 	"name": "@yunosukeyoshino/google-apps-script-starter",
-	"version": "1.1.1",
+	"version": "1.2.0",
 	"description": "A starter template for Google Apps Script development with React, TypeScript, Vite, Tailwind CSS, and shadcn/ui.",
 	"keywords": [
 		"clasp",
