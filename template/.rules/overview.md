@@ -4,11 +4,11 @@ Google Apps Script (GAS) Webアプリを Vite + TypeScript で開発し、`clasp
 
 ## 技術スタック
 
-| Category | Technology |
-|----------|------------|
-| Runtime | Google Apps Script (V8) |
+| Category | Technology                                 |
+| -------- | ------------------------------------------ |
+| Runtime  | Google Apps Script (V8)                    |
 | Frontend | Vite (Vanilla TypeScript), Tailwind CSS v4 |
-| Tooling | clasp, Biome (Lint/Format), bun |
+| Tooling  | clasp, Biome (Lint/Format), bun            |
 
 ## ディレクトリ構造
 
@@ -19,9 +19,9 @@ Google Apps Script (GAS) Webアプリを Vite + TypeScript で開発し、`clasp
 
 ## ガイドライン参照
 
-| Topic | File |
-|-------|------|
-| clasp 操作・デプロイ | `.rules/clasp-guide.md` |
-| TypeScript 開発基準 | `.rules/typescript.md` |
-| コードスタイル | `.rules/readable-code.md` |
-| コードレビュー | `.rules/styleguide.md` |
+| Topic                | File                      |
+| -------------------- | ------------------------- |
+| clasp 操作・デプロイ | `.rules/clasp-guide.md`   |
+| TypeScript 開発基準  | `.rules/typescript.md`    |
+| コードスタイル       | `.rules/readable-code.md` |
+| コードレビュー       | `.rules/styleguide.md`    |

@@ -2,9 +2,9 @@
  * GETリクエストに対するレスポンスを返します。
  */
 function doGet() {
-  return HtmlService.createHtmlOutputFromFile("index")
-    .setTitle("GAS Web App")
-    .addMetaTag("viewport", "width=device-width, initial-scale=1");
+	return HtmlService.createHtmlOutputFromFile("index")
+		.setTitle("GAS Web App")
+		.addMetaTag("viewport", "width=device-width, initial-scale=1");
 }
 
 /**
@@ -12,7 +12,7 @@ function doGet() {
  * @return {string} 現在の日時文字列
  */
 function getServerTime() {
-  return new Date().toLocaleString("ja-JP");
+	return new Date().toLocaleString("ja-JP");
 }
 
 /**
@@ -21,8 +21,10 @@ function getServerTime() {
  * @return {string} 挨拶メッセージ
  */
 function getGreeting(name) {
-  const normalizedName = String(name ?? "").trim().slice(0, 80);
-  const recipient = normalizedName || "world";
+	const normalizedName = String(name ?? "")
+		.trim()
+		.slice(0, 80);
+	const recipient = normalizedName || "world";
 
-  return `Hello, ${recipient}! ${new Date().toLocaleString("ja-JP")}`;
+	return `Hello, ${recipient}! ${new Date().toLocaleString("ja-JP")}`;
 }
