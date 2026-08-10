@@ -33,6 +33,8 @@
 		"template/gitignore",
 		"template/package.json",
 		"template/components.json",
+		"template/.oxlintrc.json",
+		"template/.oxfmtrc.json",
 		"template/src/",
 		"template/tsconfig.json",
 		"template/vite.config.ts",

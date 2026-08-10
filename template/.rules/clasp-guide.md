@@ -45,7 +45,7 @@ clasp 3.x では TypeScript の transpile は行われません。Vite で `dist
 - **強制同期**: `bun run push` は `clasp push --force` を実行し、Apps Script エディタ上の変更をローカルの `dist/` で上書きする。
 - **アクセス権限**: 公開 Webアプリは `src/gas/appsscript.json` の `webapp.access` を `ANYONE` に設定する。
 - **サーバー関数**: `doGet` / `doPost` およびスプレッドシートから呼ぶ関数は `src/gas/main.gs` にトップレベル関数として定義する（`export` 不可）。
-- **HTML の配信**: `HtmlService.createTemplateFromFile("index")` は push 後の `dist/index.html` を参照する（ソースは `src/web/index.html`）。
+- **HTML の配信**: `HtmlService.createHtmlOutputFromFile("index")` は push 後の `dist/index.html` を参照する（ソースは `src/web/index.html`）。
 - **依存関係**: npm パッケージは GAS ランタイムでは動きません。GAS ライブラリか Web 側 CDN を使う。
 
 ## 便利なコマンド

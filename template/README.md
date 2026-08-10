@@ -24,7 +24,7 @@ The project integrates high-performance tools to ensure a robust developer exper
 | **UI**         | [React 19](https://react.dev/)                       | Component-based user interface.                                                  |
 | **Bundler**    | [Vite 8](https://vitejs.dev/)                        | Next-generation frontend tooling for HMR and optimized builds.                   |
 | **Styling**    | [Tailwind CSS v4](https://tailwindcss.com/)          | High-performance, CSS-first design framework.                                    |
-| **Components** | [shadcn/ui](https://ui.shadcn.com/)                  | Copy-paste components built on [Base UI](https://base-ui.com/) (MUI) primitives. |
+| **Components** | [shadcn/ui](https://ui.shadcn.com/)                  | Copy-paste components built on [Base UI](https://base-ui.com/) primitives. |
 | **Language**   | [TypeScript](https://www.typescriptlang.org/)        | Type-safe browser-side development.                                              |
 | **Tooling**    | [Oxlint](https://oxc.rs/) + [Oxfmt](https://oxc.rs/) | Oxc による高速 lint とフォーマット。                                             |
 | **Deployment** | [clasp](https://github.com/google/clasp)             | Command-line utility to manage Apps Script projects.                             |
@@ -135,7 +135,7 @@ bun run push
 
 ## 🧩 shadcn/ui (Base UI)
 
-This starter uses [shadcn/ui](https://ui.shadcn.com/) with [Base UI](https://base-ui.com/) (MUI) as the primitive library. Components live in `src/web/components/ui/` and are copied into the project as source code, so you can customize them freely.
+This starter uses [shadcn/ui](https://ui.shadcn.com/) with [Base UI](https://base-ui.com/) as the primitive library. Components live in `src/web/components/ui/` and are copied into the project as source code, so you can customize them freely.
 
 To add a new component:
 

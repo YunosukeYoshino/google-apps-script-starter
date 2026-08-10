@@ -7,7 +7,7 @@ Google Apps Script (GAS) Webアプリを Vite + TypeScript で開発し、`clasp
 | Category | Technology                                 |
 | -------- | ------------------------------------------ |
 | Runtime  | Google Apps Script (V8)                    |
-| Frontend | Vite (Vanilla TypeScript), Tailwind CSS v4 |
+| Frontend | Vite (React 19), Tailwind CSS v4, shadcn/ui (Base UI) |
 | Tooling  | clasp, Oxlint (Lint), Oxfmt (Format), bun  |
 
 ## ディレクトリ構造

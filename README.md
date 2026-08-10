@@ -7,7 +7,7 @@ The npm source for `create-gas-starter`, a CLI that scaffolds Google Apps Script
 > **Prerequisite:** [Bun](https://bun.sh) must be installed. The CLI runs on Bun and requires it at scaffold time.
 
 ```bash
-npx create-gas-starter my-gas-project
+npx @yunosukeyoshino/google-apps-script-starter my-gas-project
 ```
 
 The generated project documentation lives in [`template/README.md`](template/README.md).

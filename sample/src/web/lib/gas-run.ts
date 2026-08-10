@@ -6,7 +6,6 @@
  *
  * @example
  * ```ts
- * const time = await runFunction<string>("getServerTime");
  * const message = await runFunction<string>("getGreeting", "Codex");
  * ```
  */

@@ -12,7 +12,7 @@ A clear and concise description of what the bug is.
 
 ## Steps to Reproduce
 
-1. Run `bunx create-gas-starter my-project`
+1. Run `bunx @yunosukeyoshino/google-apps-script-starter my-project`
 2. ...
 3. See error
 
