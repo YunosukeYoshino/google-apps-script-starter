@@ -11,7 +11,7 @@ const repoRoot = path.resolve(
 const workDir = fs.mkdtempSync(path.join(os.tmpdir(), "gas-starter-smoke-"));
 const projectName = "smoke-test-project";
 const projectDir = path.join(workDir, projectName);
-const cliPath = path.join(repoRoot, "bin", "cli.ts");
+const cliPath = path.join(repoRoot, "src", "cli.ts");
 
 try {
 	execFileSync("bun", [cliPath, projectName], {
@@ -23,6 +23,18 @@ try {
 		cwd: projectDir,
 		stdio: "inherit",
 	});
+
+	for (const requiredPath of [
+		"src/appsscript.json",
+		".rules/overview.md",
+		".gitignore",
+		"AGENTS.md",
+		"vite.config.ts",
+	]) {
+		if (!fs.existsSync(path.join(projectDir, requiredPath))) {
+			throw new Error(`Scaffold is missing ${requiredPath}`);
+		}
+	}
 
 	const distHtml = fs.readFileSync(
 		path.join(projectDir, "dist", "index.html"),

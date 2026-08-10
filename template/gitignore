@@ -1,9 +1,8 @@
 # Dependencies
 node_modules/
 
-# Generated template build
-dist/
-template/dist/
+# Clasp
+.clasp.json
 
 # TypeScript
 *.tsbuildinfo
@@ -28,3 +27,5 @@ bun-debug.log*
 # IDEs
 .vscode/
 .idea/
+
+dist

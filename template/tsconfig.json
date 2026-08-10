@@ -2,13 +2,12 @@
 	"compilerOptions": {
 		"target": "ESNext",
 		"module": "ESNext",
-		"moduleResolution": "Bundler",
+		"lib": ["ESNext", "DOM"],
 		"strict": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true,
-		"noEmit": true,
-		"types": ["bun"]
+		"types": ["google-apps-script"]
 	},
-	"include": ["src/**/*.ts", "scripts/**/*.ts"]
+	"include": ["src/**/*.ts"]
 }

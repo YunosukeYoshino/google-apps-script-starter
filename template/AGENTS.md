@@ -4,13 +4,6 @@
 
 - Use **bun**: `bun install`
 
-## Architecture
-
-- CLI package source: `src/`
-- Generated project template: `template/`
-- Template-specific instructions: `template/AGENTS.md`
-- Directory architecture norms: `/Users/yunosukeyoshino/.agents/skills/directory-architecture/references/instructions.md`
-
 ## Commands
 
 | Task | Command |
@@ -33,19 +26,19 @@
 | Need | File |
 |------|------|
 | Setup & structure | `README.md` |
-| Project overview | `template/.rules/overview.md` |
-| clasp workflow | `template/.rules/clasp-guide.md` |
-| TypeScript | `template/.rules/typescript.md` |
-| Readable code | `template/.rules/readable-code.md` |
-| Code review | `template/.rules/styleguide.md` |
+| Project overview | `.rules/overview.md` |
+| clasp workflow | `.rules/clasp-guide.md` |
+| TypeScript | `.rules/typescript.md` |
+| Readable code | `.rules/readable-code.md` |
+| Code review | `.rules/styleguide.md` |
 
 ## Key Conventions
 
-- Edit `template/src/` for generated app code; `template/dist/` is build output and the clasp push target.
+- Edit `src/` only; `dist/` is build output and the clasp push target.
 - `doGet`, `doPost`, and spreadsheet-callable functions: top-level functions, no `export`.
-- Public web apps: set `template/src/appsscript.json` `webapp.access` to `ANYONE`.
+- Public web apps: set `src/appsscript.json` `webapp.access` to `ANYONE`.
 - npm packages do not run in the GAS runtime; use GAS libraries or CDN on the web side.
-- `HtmlService.createTemplateFromFile("index")` serves `template/dist/index.html` after push (edit `template/src/index.html`).
+- `HtmlService.createTemplateFromFile("index")` serves `dist/index.html` after push (edit `src/index.html`).
 - Copy `.clasp.json.example` to `.clasp.json` and set `rootDir` to `dist`.
 
 ## Communication
