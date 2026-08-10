@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/YunosukeYoshino/google-apps-script-starter/compare/v1.2.1...v1.2.2) (2026-08-10)
+
+
+### Bug Fixes
+
+* include lint configs in npm package and correct docs drift ([ab60212](https://github.com/YunosukeYoshino/google-apps-script-starter/commit/ab6021239d5bdca808d029bcc6f9d5e4bf9f0699))
+
 ## [1.2.1](https://github.com/YunosukeYoshino/google-apps-script-starter/compare/v1.2.0...v1.2.1) (2026-08-10)
 
 
