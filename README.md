@@ -15,6 +15,7 @@ The generated project documentation lives in [`template/README.md`](template/REA
 ```text
 src/          CLI package source
 template/     Files copied into generated projects
+sample/       Runnable GAS Web app example
 scripts/      Repository support and smoke tests
 ```
 
@@ -26,4 +27,8 @@ bun run lint
 bun run typecheck
 bun run build
 bun run test:smoke
+bun run sample:typecheck
+bun run sample:build
 ```
+
+The runnable browser-to-GAS example is documented in [`sample/README.md`](sample/README.md).

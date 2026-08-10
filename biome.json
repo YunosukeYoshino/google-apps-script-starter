@@ -10,7 +10,9 @@
 			"**",
 			"!!dist",
 			"!!template/dist",
-			"!!template/src/web/index.html"
+			"!!template/src/web/index.html",
+			"!!sample/dist",
+			"!!sample/src/web/index.html"
 		]
 	},
 	"css": {

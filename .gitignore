@@ -12,6 +12,7 @@ template/dist/
 .env
 .env.local
 .env.*.local
+sample/.clasp.json
 
 # OS files
 .DS_Store

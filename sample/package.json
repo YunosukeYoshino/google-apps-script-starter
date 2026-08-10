@@ -1,0 +1,11 @@
+{
+	"name": "gas-greeting-sample",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"typecheck": "tsc --noEmit",
+		"push": "bun run build && clasp push"
+	}
+}
