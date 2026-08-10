@@ -130,8 +130,9 @@ bun run push
 ├── .oxlintrc.json       # Oxlint configuration
 ├── .oxfmtrc.json        # Oxfmt configuration
 ├── vite.config.ts       # Vite build configuration
-└── .clasp.json          # Clasp project settings
 ```
+
+> Note: `.clasp.json` は含まれていません。`clasp create` または `.clasp.json.example` をコピーして `scriptId` を設定すると生成されます。
 
 ## 🧩 shadcn/ui (Base UI)
 
