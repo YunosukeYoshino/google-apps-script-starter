@@ -1,44 +1,13 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base target="_top" />
-    <title>GAS greeting sample</title>
+    <title>Greeting sample</title>
   </head>
   <body>
-    <main class="mx-auto flex min-h-screen max-w-xl items-center px-6 py-16">
-      <section class="w-full rounded-2xl bg-white p-8 shadow-sm">
-        <p class="text-sm font-semibold text-blue-600">Google Apps Script</p>
-        <h1 class="mt-2 text-3xl font-bold">Greeting sample</h1>
-        <p class="mt-3 text-slate-600">
-          ブラウザのTypeScriptから <code>google.script.run</code> を使ってGAS関数を呼び出します。
-        </p>
-
-        <form id="greeting-form" class="mt-8 space-y-4">
-          <div>
-            <label for="name" class="block text-sm font-medium">名前</label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              maxlength="80"
-              autocomplete="name"
-              class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
-              placeholder="Codex"
-            />
-          </div>
-          <button
-            type="submit"
-            class="rounded-lg bg-blue-600 px-4 py-2 font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
-          >
-            GASを呼び出す
-          </button>
-        </form>
-
-        <output id="result" class="mt-6 block min-h-6 text-sm text-slate-700" aria-live="polite"></output>
-      </section>
-    </main>
-    <script type="module" src="./main.ts"></script>
+    <div id="root"></div>
+    <script type="module" src="./main.tsx"></script>
   </body>
 </html>

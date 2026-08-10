@@ -2,11 +2,21 @@
 	"compilerOptions": {
 		"target": "ESNext",
 		"module": "ESNext",
-		"moduleResolution": "Bundler",
-		"lib": ["ESNext", "DOM"],
+		"moduleResolution": "bundler",
+		"lib": ["ESNext", "DOM", "DOM.Iterable"],
+		"jsx": "react-jsx",
 		"strict": true,
+		"noUnusedLocals": true,
+		"esModuleInterop": true,
 		"skipLibCheck": true,
-		"types": ["google-apps-script"]
+		"forceConsistentCasingInFileNames": true,
+		"isolatedModules": true,
+		"moduleDetection": "force",
+		"noEmit": true,
+		"types": ["google-apps-script"],
+		"paths": {
+			"@/*": ["./src/web/*"]
+		}
 	},
-	"include": ["src/web/**/*.ts"]
+	"include": ["src"]
 }
