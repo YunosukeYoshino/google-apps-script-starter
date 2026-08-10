@@ -1,6 +1,6 @@
 # Google Apps Script Starter
 
-The npm source for `create-gas-starter`, a CLI that scaffolds Google Apps Script web apps using TypeScript, Vite, Tailwind CSS, and clasp.
+The npm source for `create-gas-starter`, a CLI that scaffolds Google Apps Script web apps using React, TypeScript, Vite, Tailwind CSS, shadcn/ui (Base UI), and clasp.
 
 ## Usage
 

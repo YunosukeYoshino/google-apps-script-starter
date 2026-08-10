@@ -1,12 +1,12 @@
 # Greeting sample
 
-ブラウザ側の TypeScript から `google.script.run` を使い、Apps Script の `getGreeting` 関数を呼び出す最小サンプルです。
+ブラウザ側の React から `google.script.run` を使い、Apps Script の `getGreeting` 関数を呼び出す最小サンプルです。
 
 ## Structure
 
 ```text
 src/
-├── web/  # ブラウザで実行される TypeScript、HTML、CSS
+├── web/  # ブラウザで実行される React（TypeScript）、HTML、CSS
 └── gas/  # Apps Script で実行される .gs と manifest
 ```
 

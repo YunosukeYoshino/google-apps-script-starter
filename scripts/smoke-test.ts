@@ -41,12 +41,20 @@ try {
 		path.join(projectDir, "dist", "index.html"),
 		"utf8",
 	);
+	if (!distHtml.includes('id="root"')) {
+		throw new Error("dist/index.html is missing the React root mount point");
+	}
+
+	const distGs = fs.readFileSync(
+		path.join(projectDir, "dist", "main.gs"),
+		"utf8",
+	);
 	if (
-		!distHtml.includes('id="server-time"') ||
-		!distHtml.includes("<?= serverTime ?>")
+		!distGs.includes("createHtmlOutputFromFile") ||
+		!distGs.includes("getServerTime")
 	) {
 		throw new Error(
-			"dist/index.html is missing the serverTime template scriptlet",
+			"dist/main.gs is missing the HtmlOutput serving or getServerTime function",
 		);
 	}
 

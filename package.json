@@ -1,7 +1,7 @@
 {
 	"name": "@yunosukeyoshino/google-apps-script-starter",
 	"version": "1.1.1",
-	"description": "A starter template for Google Apps Script development with TypeScript, Vite, and Tailwind CSS.",
+	"description": "A starter template for Google Apps Script development with React, TypeScript, Vite, Tailwind CSS, and shadcn/ui.",
 	"bin": {
 		"create-gas-starter": "src/cli.ts"
 	},
@@ -38,6 +38,7 @@
 		"template/biome.json",
 		"template/gitignore",
 		"template/package.json",
+		"template/components.json",
 		"template/src/",
 		"template/tsconfig.json",
 		"template/vite.config.ts",
