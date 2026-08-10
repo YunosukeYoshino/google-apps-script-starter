@@ -1,10 +1,6 @@
 # Dependencies
 node_modules/
 
-# Bun
-bun.lockb
-bun.lock
-
 # Clasp
 .clasp.json
 

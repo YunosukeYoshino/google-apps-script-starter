@@ -2,7 +2,7 @@
 	"compilerOptions": {
 		"target": "ESNext",
 		"module": "ESNext",
-		"lib": ["ESNext"],
+		"lib": ["ESNext", "DOM"],
 		"strict": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,

@@ -24,6 +24,19 @@ try {
 		stdio: "inherit",
 	});
 
+	const distHtml = fs.readFileSync(
+		path.join(projectDir, "dist", "index.html"),
+		"utf8",
+	);
+	if (
+		!distHtml.includes('id="server-time"') ||
+		!distHtml.includes("<?= serverTime ?>")
+	) {
+		throw new Error(
+			"dist/index.html is missing the serverTime template scriptlet",
+		);
+	}
+
 	console.log("Smoke test passed.");
 } finally {
 	fs.rmSync(workDir, { recursive: true, force: true });
