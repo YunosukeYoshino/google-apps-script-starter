@@ -53,7 +53,7 @@ The project integrates high-performance tools to ensure a robust developer exper
 
 3. Create a GAS web app project with `rootDir` set to `dist`:
    ```bash
-   bunx clasp create --type webapp --rootDir ./dist --title "My GAS Web App"
+   bunx clasp create --type standalone --rootDir ./dist --title "My GAS Web App"
    ```
    This writes `.clasp.json` with `"rootDir": "dist"`. clasp 3 does not transpile TypeScript; Vite builds into `dist/` before push.
    Source: https://github.com/google/clasp/blob/master/README.md#drop-typescript-support
@@ -79,6 +79,7 @@ bun run push
 
 > [!IMPORTANT]
 > The `dist/` directory is the source of truth for `clasp push`. Avoid modifying files in `dist/` directly, as they are overwritten during the build process.
+> The push script uses `clasp push --force`, so remote editor changes are overwritten by the local `dist/` contents.
 
 ## 📖 Command Reference
 

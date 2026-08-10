@@ -6,6 +6,6 @@
 		"dev": "vite",
 		"build": "vite build",
 		"typecheck": "tsc --noEmit",
-		"push": "bun run build && clasp push"
+		"push": "bun run build && clasp push --force"
 	}
 }

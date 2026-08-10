@@ -13,7 +13,7 @@ clasp 3.x では TypeScript の transpile は行われません。Vite で `dist
    ```
 2. Webアプリプロジェクトを作成（`rootDir` は `dist`）:
    ```bash
-   bunx clasp create --type webapp --rootDir ./dist --title "My GAS Web App"
+   bunx clasp create --type standalone --rootDir ./dist --title "My GAS Web App"
    ```
    `.clasp.json` が生成され、`rootDir` が `dist` になります。
 3. 手動で設定する場合は `.clasp.json.example` を `.clasp.json` にコピーし、`scriptId` を設定:
@@ -42,6 +42,7 @@ clasp 3.x では TypeScript の transpile は行われません。Vite で `dist
 ## 開発上の注意点 【SHOULD】
 
 - **push 対象**: clasp は `.clasp.json` の `rootDir`（`dist/`）のみを push します。`src/` は直接 push されません。
+- **強制同期**: `bun run push` は `clasp push --force` を実行し、Apps Script エディタ上の変更をローカルの `dist/` で上書きする。
 - **アクセス権限**: 公開 Webアプリは `src/gas/appsscript.json` の `webapp.access` を `ANYONE` に設定する。
 - **サーバー関数**: `doGet` / `doPost` およびスプレッドシートから呼ぶ関数は `src/gas/main.gs` にトップレベル関数として定義する（`export` 不可）。
 - **HTML の配信**: `HtmlService.createTemplateFromFile("index")` は push 後の `dist/index.html` を参照する（ソースは `src/web/index.html`）。

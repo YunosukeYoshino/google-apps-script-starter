@@ -26,3 +26,5 @@ bun run --cwd sample build
 ```bash
 bun run --cwd sample push
 ```
+
+`push` は `clasp push --force` を実行し、デプロイ先の編集内容をローカルの `dist/` で上書きします。Apps Script エディタで直接編集した内容が必要な場合は、先に退避してください。
