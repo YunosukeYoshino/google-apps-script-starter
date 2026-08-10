@@ -20,21 +20,22 @@ Use `package.json` for the complete script list. Direct clasp commands run from 
 ## Key Locations
 
 - Setup and structure: `README.md`
-- Web and GAS source: `src/`
+- Browser source: `src/web/`
+- GAS source: `src/gas/`
 - Generated clasp target: `dist/`
-- Project manifest: `src/appsscript.json`
+- Project manifest: `src/gas/appsscript.json`
 - clasp workflow: `.rules/clasp-guide.md`
 - TypeScript conventions: `.rules/typescript.md`
 - Readability and review: `.rules/readable-code.md`, `.rules/styleguide.md`
 
 ## Workflow and Safety
 
-- Edit `src/`; treat `dist/` as disposable build output.
+- Edit `src/web/` for browser code and `src/gas/` for Apps Script code; treat `dist/` as disposable build output.
 - Keep `doGet`, `doPost`, and spreadsheet-callable GAS functions at top level without `export`.
-- Keep public web apps at `src/appsscript.json` with `webapp.access` set to `ANYONE`.
+- Keep public web apps at `src/gas/appsscript.json` with `webapp.access` set to `ANYONE`.
 - Use GAS libraries or browser-side CDNs; npm packages do not execute in the GAS runtime.
 - Copy `.clasp.json.example` to `.clasp.json`, set `rootDir` to `dist`, and keep the script ID untracked.
-- `HtmlService.createTemplateFromFile("index")` serves the built `dist/index.html`; edit `src/index.html`.
+- `HtmlService.createTemplateFromFile("index")` serves the built `dist/index.html`; edit `src/web/index.html`.
 
 ## Communication
 

@@ -12,7 +12,8 @@ Google Apps Script (GAS) Webアプリを Vite + TypeScript で開発し、`clasp
 
 ## ディレクトリ構造
 
-- `src/`: ソースコード（`.ts`, `.gs`, `.html`, `appsscript.json`）
+- `src/web/`: ブラウザ側ソースコード（`.ts`, `.html`, `.css`）
+- `src/gas/`: Apps Script 側ソースコード（`.gs`, `appsscript.json`）
 - `dist/`: ビルド成果物（clasp 同期対象）
 - `.clasp.json`: clasp 設定
 

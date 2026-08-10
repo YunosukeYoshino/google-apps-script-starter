@@ -23,7 +23,7 @@ clasp 3.x では TypeScript の transpile は行われません。Vite で `dist
 
 ## 開発サイクル 【MUST】
 
-1. **コードの修正**: `src/` 配下を編集する。
+1. **コードの修正**: ブラウザ側は `src/web/`、Apps Script 側は `src/gas/` を編集する。
 2. **ビルド + 同期 (Push)**:
    ```bash
    bun run push
@@ -42,9 +42,9 @@ clasp 3.x では TypeScript の transpile は行われません。Vite で `dist
 ## 開発上の注意点 【SHOULD】
 
 - **push 対象**: clasp は `.clasp.json` の `rootDir`（`dist/`）のみを push します。`src/` は直接 push されません。
-- **アクセス権限**: 公開 Webアプリは `src/appsscript.json` の `webapp.access` を `ANYONE` に設定する。
-- **サーバー関数**: `doGet` / `doPost` およびスプレッドシートから呼ぶ関数は `src/main.gs` にトップレベル関数として定義する（`export` 不可）。
-- **HTML の配信**: `HtmlService.createTemplateFromFile("index")` は push 後の `dist/index.html` を参照する（ソースは `src/index.html`）。
+- **アクセス権限**: 公開 Webアプリは `src/gas/appsscript.json` の `webapp.access` を `ANYONE` に設定する。
+- **サーバー関数**: `doGet` / `doPost` およびスプレッドシートから呼ぶ関数は `src/gas/main.gs` にトップレベル関数として定義する（`export` 不可）。
+- **HTML の配信**: `HtmlService.createTemplateFromFile("index")` は push 後の `dist/index.html` を参照する（ソースは `src/web/index.html`）。
 - **依存関係**: npm パッケージは GAS ランタイムでは動きません。GAS ライブラリか Web 側 CDN を使う。
 
 ## 便利なコマンド

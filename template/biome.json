@@ -7,7 +7,7 @@
 		"useIgnoreFile": true
 	},
 	"files": {
-		"includes": ["**", "!!**/dist", "!!**/src/index.html"]
+		"includes": ["**", "!!**/dist", "!!**/src/web/index.html"]
 	},
 	"css": {
 		"parser": {

@@ -30,7 +30,7 @@ The project integrates high-performance tools to ensure a robust developer exper
 - **Optimized Assets**: Automatically inlines JS and CSS into a single HTML file using `vite-plugin-singlefile`, ensuring seamless integration with GAS `HtmlService`.
 - **Modern Workflow**: Local development server with Hot Module Replacement (HMR) for the UI.
 - **Strict Quality Control**: Pre-configured Biome linting and formatting.
-- **Unified Structure**: All source files (Frontend, Backend, Configuration) are co-located in the `src/` directory for better maintainability.
+- **Explicit Runtime Boundaries**: Browser code lives in `src/web/`, while Apps Script code and configuration live in `src/gas/`.
 
 ## 🚀 Getting Started
 
@@ -95,11 +95,13 @@ bun run push
 ```text
 .
 ├── src/
-│   ├── index.html       # Web App entry point
-│   ├── main.ts          # Client-side TypeScript
-│   ├── style.css        # Tailwind CSS imports
-│   ├── main.gs          # Server-side GAS logic
-│   └── appsscript.json  # Manifest file
+│   ├── web/                 # Browser runtime
+│   │   ├── index.html       # Web App entry point
+│   │   ├── main.ts          # Client-side TypeScript
+│   │   └── style.css        # Tailwind CSS imports
+│   └── gas/                 # Apps Script runtime
+│       ├── main.gs          # Server-side GAS logic
+│       └── appsscript.json  # Manifest file
 ├── dist/                # Optimized build artifacts (Clasp target)
 ├── .clasp.json.example  # Example clasp config (rootDir: dist)
 ├── biome.json           # Biome configuration

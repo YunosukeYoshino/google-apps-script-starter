@@ -6,7 +6,12 @@
 		"useIgnoreFile": true
 	},
 	"files": {
-		"includes": ["**", "!!dist", "!!template/dist", "!!template/src/index.html"]
+		"includes": [
+			"**",
+			"!!dist",
+			"!!template/dist",
+			"!!template/src/web/index.html"
+		]
 	},
 	"css": {
 		"parser": {

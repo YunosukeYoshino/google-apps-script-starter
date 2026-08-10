@@ -4,21 +4,27 @@ import { viteSingleFile } from "vite-plugin-singlefile";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
 export default defineConfig({
-	root: "src",
+	root: "src/web",
 	plugins: [
 		tailwindcss(),
 		viteSingleFile(),
 		viteStaticCopy({
 			targets: [
 				{
-					src: ["appsscript.json", "main.gs"],
+					src: "../gas/appsscript.json",
 					dest: ".",
+					rename: { stripBase: true },
+				},
+				{
+					src: "../gas/main.gs",
+					dest: ".",
+					rename: { stripBase: true },
 				},
 			],
 		}),
 	],
 	build: {
-		outDir: "../dist",
+		outDir: "../../dist",
 		emptyOutDir: true,
 	},
 });

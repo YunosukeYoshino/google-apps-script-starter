@@ -25,7 +25,8 @@ try {
 	});
 
 	for (const requiredPath of [
-		"src/appsscript.json",
+		"src/gas/appsscript.json",
+		"src/web/index.html",
 		".rules/overview.md",
 		".gitignore",
 		"AGENTS.md",

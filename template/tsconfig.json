@@ -9,5 +9,5 @@
 		"forceConsistentCasingInFileNames": true,
 		"types": ["google-apps-script"]
 	},
-	"include": ["src/**/*.ts"]
+	"include": ["src/web/**/*.ts"]
 }
