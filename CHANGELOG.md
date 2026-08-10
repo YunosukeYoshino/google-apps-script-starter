@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/YunosukeYoshino/google-apps-script-starter/compare/v1.2.0...v1.2.1) (2026-08-10)
+
+
+### Bug Fixes
+
+* use webapp type in clasp create command to match webapp manifest ([598778d](https://github.com/YunosukeYoshino/google-apps-script-starter/commit/598778d1eccd68cd6d85e775d8c846456c719560))
+
 ## [1.2.0](https://github.com/YunosukeYoshino/google-apps-script-starter/compare/v1.1.1...v1.2.0) (2026-08-10)
 
 
