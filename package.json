@@ -19,6 +19,10 @@
 	"bin": {
 		"create-gas-starter": "src/cli.ts"
 	},
+	"workspaces": [
+		"template",
+		"sample"
+	],
 	"files": [
 		"src/",
 		"template/.clasp.json.example",
