@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/YunosukeYoshino/google-apps-script-starter/compare/v1.1.0...v1.1.1) (2026-08-10)
+
+
+### Bug Fixes
+
+* **release:** install dependencies before npm publish ([c3091c7](https://github.com/YunosukeYoshino/google-apps-script-starter/commit/c3091c7b7a91f8426a8eb3c160b695f809af148b))
+
 ## [1.1.0](https://github.com/YunosukeYoshino/google-apps-script-starter/compare/v1.0.0...v1.1.0) (2026-08-10)
 
 
