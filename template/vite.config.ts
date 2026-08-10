@@ -1,4 +1,6 @@
+import path from "node:path";
 import tailwindcss from "@tailwindcss/vite";
+import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import { viteSingleFile } from "vite-plugin-singlefile";
 import { viteStaticCopy } from "vite-plugin-static-copy";
@@ -6,6 +8,7 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 export default defineConfig({
 	root: "src/web",
 	plugins: [
+		react(),
 		tailwindcss(),
 		viteSingleFile(),
 		viteStaticCopy({
@@ -23,6 +26,11 @@ export default defineConfig({
 			],
 		}),
 	],
+	resolve: {
+		alias: {
+			"@": path.resolve(import.meta.dirname, "src/web"),
+		},
+	},
 	build: {
 		outDir: "../../dist",
 		emptyOutDir: true,

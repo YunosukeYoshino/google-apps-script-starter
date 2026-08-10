@@ -1,7 +1,0 @@
-@import "tailwindcss";
-
-@layer components {
-	.caption {
-		@apply mt-4 text-sm text-gray-500 font-mono;
-	}
-}
