@@ -13,7 +13,7 @@ clasp 3.x では TypeScript の transpile は行われません。Vite で `dist
    ```
 2. Webアプリプロジェクトを作成（`rootDir` は `dist`）:
    ```bash
-   bunx clasp create --type standalone --rootDir ./dist --title "My GAS Web App"
+   bunx clasp create --type webapp --rootDir ./dist --title "My GAS Web App"
    ```
    `.clasp.json` が生成され、`rootDir` が `dist` になります。
 3. 手動で設定する場合は `.clasp.json.example` を `.clasp.json` にコピーし、`scriptId` を設定:

@@ -45,6 +45,6 @@ console.log("\nSuccess! Your project is ready.");
 console.log(`\n  cd ${projectName}`);
 console.log("  bunx clasp login");
 console.log(
-	'  bunx clasp create --type standalone --rootDir ./dist --title "My GAS Web App"',
+	'  bunx clasp create --type webapp --rootDir ./dist --title "My GAS Web App"',
 );
 console.log("  bun run dev\n");
