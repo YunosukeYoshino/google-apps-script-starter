@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.3](https://github.com/YunosukeYoshino/google-apps-script-starter/compare/v1.2.2...v1.2.3) (2026-08-10)
+
+
+### Bug Fixes
+
+* clarify that .clasp.json is generated, not part of scaffold ([469aa76](https://github.com/YunosukeYoshino/google-apps-script-starter/commit/469aa76ee73fb1d4b897f439ec64ddbadfed230b))
+
 ## [1.2.2](https://github.com/YunosukeYoshino/google-apps-script-starter/compare/v1.2.1...v1.2.2) (2026-08-10)
 
 
