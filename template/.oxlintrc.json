@@ -1,0 +1,25 @@
+{
+	"$schema": "./node_modules/oxlint/configuration_schema.json",
+	"plugins": ["react", "typescript", "unicorn", "oxc"],
+	"categories": {
+		"correctness": "error",
+		"suspicious": "warn"
+	},
+	"rules": {
+		"react/react-in-jsx-scope": "off"
+	},
+	"env": {
+		"es2022": true,
+		"browser": true,
+		"node": true
+	},
+	"overrides": [
+		{
+			"files": ["**/*.ts", "**/*.tsx"],
+			"plugins": ["typescript"],
+			"rules": {
+				"typescript/no-explicit-any": "warn"
+			}
+		}
+	]
+}

@@ -1,0 +1,18 @@
+{
+	"$schema": "./node_modules/oxfmt/configuration_schema.json",
+	"useTabs": true,
+	"singleQuote": false,
+	"printWidth": 80,
+	"sortImports": true,
+	"ignorePatterns": [
+		"node_modules/**",
+		"dist/**",
+		"**/dist/**",
+		"bun.lock",
+		"CHANGELOG.md",
+		".github/**",
+		"CODE_OF_CONDUCT.md",
+		"CONTRIBUTING.md",
+		"SECURITY.md"
+	]
+}
