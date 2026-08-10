@@ -29,7 +29,6 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: 22
-          registry-url: https://registry.npmjs.org
 
       - name: Setup Bun
         if: ${{ steps.release.outputs.release_created }}
@@ -41,6 +40,4 @@ jobs:
 
       - name: Publish to npm
         if: ${{ steps.release.outputs.release_created }}
-        run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish
