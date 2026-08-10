@@ -1,46 +1,41 @@
 # Agent Instructions
 
-## Package Manager
+## Project
 
-- Use **bun**: `bun install`
+This is a Google Apps Script web app built with Vite, TypeScript, Tailwind CSS, and clasp. Use **bun** for package management.
 
-## Commands
+## Core Commands
 
-| Task | Command |
-|------|---------|
-| Dev server | `bun run dev` |
-| Build | `bun run build` |
-| Push to GAS | `bun run push` |
-| Deploy | `bun run deploy` |
-| List deployments | `bun run deployments` |
-| Open web app | `bun run open` |
-| Lint | `bun run lint` |
-| Lint fix | `bun run lint:fix` |
-| Format | `bun run format` |
-| Lint file | `bun run lint -- path/to/file.ts` |
-| Open GAS editor | `bunx clasp open` |
-| Watch logs | `bunx clasp logs --watch` |
+```bash
+bun install
+bun run dev
+bun run lint
+bun run typecheck
+bun run build
+bun run push
+```
 
-## External References
+Use `package.json` for the complete script list. Direct clasp commands run from the project root after `.clasp.json` has been configured.
 
-| Need | File |
-|------|------|
-| Setup & structure | `README.md` |
-| Project overview | `.rules/overview.md` |
-| clasp workflow | `.rules/clasp-guide.md` |
-| TypeScript | `.rules/typescript.md` |
-| Readable code | `.rules/readable-code.md` |
-| Code review | `.rules/styleguide.md` |
+## Key Locations
 
-## Key Conventions
+- Setup and structure: `README.md`
+- Web and GAS source: `src/`
+- Generated clasp target: `dist/`
+- Project manifest: `src/appsscript.json`
+- clasp workflow: `.rules/clasp-guide.md`
+- TypeScript conventions: `.rules/typescript.md`
+- Readability and review: `.rules/readable-code.md`, `.rules/styleguide.md`
 
-- Edit `src/` only; `dist/` is build output and the clasp push target.
-- `doGet`, `doPost`, and spreadsheet-callable functions: top-level functions, no `export`.
-- Public web apps: set `src/appsscript.json` `webapp.access` to `ANYONE`.
-- npm packages do not run in the GAS runtime; use GAS libraries or CDN on the web side.
-- `HtmlService.createTemplateFromFile("index")` serves `dist/index.html` after push (edit `src/index.html`).
-- Copy `.clasp.json.example` to `.clasp.json` and set `rootDir` to `dist`.
+## Workflow and Safety
+
+- Edit `src/`; treat `dist/` as disposable build output.
+- Keep `doGet`, `doPost`, and spreadsheet-callable GAS functions at top level without `export`.
+- Keep public web apps at `src/appsscript.json` with `webapp.access` set to `ANYONE`.
+- Use GAS libraries or browser-side CDNs; npm packages do not execute in the GAS runtime.
+- Copy `.clasp.json.example` to `.clasp.json`, set `rootDir` to `dist`, and keep the script ID untracked.
+- `HtmlService.createTemplateFromFile("index")` serves the built `dist/index.html`; edit `src/index.html`.
 
 ## Communication
 
-- Code review comments: Japanese.
+- Write code review comments in Japanese.

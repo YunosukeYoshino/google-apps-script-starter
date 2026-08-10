@@ -2,15 +2,6 @@
 
 A starter template for Google Apps Script development with TypeScript, Vite, and Tailwind CSS.
 
-## Quick Start
-
-You can create a new project using `npx`:
-
-```bash
-npx create-gas-starter my-gas-project
-```
-
-
 ## Features
 
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
@@ -29,7 +20,7 @@ The project integrates high-performance tools to ensure a robust developer exper
 | **Runtime** | Google Apps Script | V8 Engine environment. |
 | **Bundler** | [Vite 8](https://vitejs.dev/) | Next-generation frontend tooling for HMR and optimized builds. |
 | **Styling** | [Tailwind CSS v4](https://tailwindcss.com/) | High-performance, CSS-first design framework. |
-| **Language** | [TypeScript](https://www.typescriptlang.org/) | Type-safe development for both frontend and server-side. |
+| **Language** | [TypeScript](https://www.typescriptlang.org/) | Type-safe browser-side development. |
 | **Tooling** | [Biome](https://biomejs.dev/) | High-speed, all-in-one tool for linting and formatting. |
 | **Deployment**| [clasp](https://github.com/google/clasp) | Command-line utility to manage Apps Script projects. |
 | **Manager** | [Bun](https://bun.sh/) | Fast JavaScript all-in-one toolkit. |
@@ -38,7 +29,7 @@ The project integrates high-performance tools to ensure a robust developer exper
 
 - **Optimized Assets**: Automatically inlines JS and CSS into a single HTML file using `vite-plugin-singlefile`, ensuring seamless integration with GAS `HtmlService`.
 - **Modern Workflow**: Local development server with Hot Module Replacement (HMR) for the UI.
-- **Strict Quality Control**: Pre-configured Biome rules and Husky git hooks to maintain high standards for every commit.
+- **Strict Quality Control**: Pre-configured Biome linting and formatting.
 - **Unified Structure**: All source files (Frontend, Backend, Configuration) are co-located in the `src/` directory for better maintainability.
 
 ## 🚀 Getting Started
@@ -50,7 +41,7 @@ The project integrates high-performance tools to ensure a robust developer exper
 
 ### Installation
 
-1. Clone the repository and install dependencies:
+1. Install dependencies in the generated project directory:
    ```bash
    bun install
    ```

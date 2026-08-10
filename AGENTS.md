@@ -1,53 +1,65 @@
+---
+last-validated: 2026-08-10
+---
+
 # Agent Instructions
 
-## Package Manager
+## Project
 
-- Use **bun**: `bun install`
+- **What:** This repository publishes the `create-gas-starter` CLI.
+- **Why:** Separate CLI and template boundaries prevent repository tooling from leaking into generated projects.
+- **How:** CLI code lives in `src/`; files copied into generated GAS projects live in `template/`.
 
-## Architecture
+```text
+src/          CLI package source
+template/     Generated-project files
+scripts/      Repository checks
+```
 
-- CLI package source: `src/`
-- Generated project template: `template/`
-- Template-specific instructions: `template/AGENTS.md`
-- Directory architecture norms: `/Users/yunosukeyoshino/.agents/skills/directory-architecture/references/instructions.md`
+Use **bun** for package management.
 
-## Commands
+## Core Commands
 
-| Task | Command |
-|------|---------|
-| Dev server | `bun run dev` |
-| Build | `bun run build` |
-| Push to GAS | `bun run push` |
-| Deploy | `bun run deploy` |
-| List deployments | `bun run deployments` |
-| Open web app | `bun run open` |
-| Lint | `bun run lint` |
-| Lint fix | `bun run lint:fix` |
-| Format | `bun run format` |
-| Lint file | `bun run lint -- path/to/file.ts` |
-| Open GAS editor | `bunx clasp open` |
-| Watch logs | `bunx clasp logs --watch` |
+```bash
+bun install
+bun run dev
+bun run lint
+bun run typecheck
+bun run build
+bun run test:smoke
+```
 
-## External References
+Run other repository scripts through `package.json`. Commands that call clasp directly must run against the template project:
 
-| Need | File |
-|------|------|
-| Setup & structure | `README.md` |
-| Project overview | `template/.rules/overview.md` |
-| clasp workflow | `template/.rules/clasp-guide.md` |
-| TypeScript | `template/.rules/typescript.md` |
-| Readable code | `template/.rules/readable-code.md` |
-| Code review | `template/.rules/styleguide.md` |
+```bash
+bunx --cwd template clasp open
+bunx --cwd template clasp logs --watch
+```
 
-## Key Conventions
+## Key Locations
 
-- Edit `template/src/` for generated app code; `template/dist/` is build output and the clasp push target.
-- `doGet`, `doPost`, and spreadsheet-callable functions: top-level functions, no `export`.
-- Public web apps: set `template/src/appsscript.json` `webapp.access` to `ANYONE`.
-- npm packages do not run in the GAS runtime; use GAS libraries or CDN on the web side.
-- `HtmlService.createTemplateFromFile("index")` serves `template/dist/index.html` after push (edit `template/src/index.html`).
-- Copy `.clasp.json.example` to `.clasp.json` and set `rootDir` to `dist`.
+| Responsibility | Path |
+|---|---|
+| CLI implementation | `src/cli.ts` |
+| Scaffolded project | `template/` |
+| Generated-project instructions | `template/AGENTS.md` |
+| Generated-project setup | `template/README.md` |
+| GAS and TypeScript conventions | `template/.rules/` |
+
+## Rules
+
+- Directory changes: use the `directory-architecture` skill when it is available; otherwise preserve the existing layout.
+- Documentation for agents: use the `writing-for-agents` skill when it is available.
+
+## Workflow and Safety
+
+- Edit `template/src/` for generated app code. Treat `template/dist/` as disposable build output.
+- Keep `doGet`, `doPost`, and spreadsheet-callable GAS functions at top level without `export`.
+- Keep public web apps at `template/src/appsscript.json` with `webapp.access` set to `ANYONE`.
+- Use GAS libraries or browser-side CDNs; npm packages do not execute in the GAS runtime.
+- Before direct clasp commands, copy `template/.clasp.json.example` inside `template/`, use the standard clasp configuration filename, and keep its script ID untracked.
+- Validate each logical change before a Conventional Commit. Keep commits local unless the user explicitly requests a push.
 
 ## Communication
 
-- Code review comments: Japanese.
+- Write code review comments in Japanese.
