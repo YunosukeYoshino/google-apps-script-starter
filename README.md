@@ -14,7 +14,7 @@ npx create-gas-starter my-gas-project
 ## Features
 
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
-[![Vite](https://img.shields.io/badge/Vite-v7.0-646CFF?logo=vite)](https://vitejs.dev/)
+[![Vite](https://img.shields.io/badge/Vite-v8.0-646CFF?logo=vite)](https://vitejs.dev/)
 [![Biome](https://img.shields.io/badge/Biome-v2.0-60A5FA?logo=biome)](https://biomejs.dev/)
 [![clasp](https://img.shields.io/badge/clasp-v3.0-4285F4?logo=google-apps-script)](https://github.com/google/clasp)
 
@@ -27,7 +27,7 @@ The project integrates high-performance tools to ensure a robust developer exper
 | Category | Technology | Description |
 | :--- | :--- | :--- |
 | **Runtime** | Google Apps Script | V8 Engine environment. |
-| **Bundler** | [Vite 7](https://vitejs.dev/) | Next-generation frontend tooling for HMR and optimized builds. |
+| **Bundler** | [Vite 8](https://vitejs.dev/) | Next-generation frontend tooling for HMR and optimized builds. |
 | **Styling** | [Tailwind CSS v4](https://tailwindcss.com/) | High-performance, CSS-first design framework. |
 | **Language** | [TypeScript](https://www.typescriptlang.org/) | Type-safe development for both frontend and server-side. |
 | **Tooling** | [Biome](https://biomejs.dev/) | High-speed, all-in-one tool for linting and formatting. |
