@@ -20,7 +20,7 @@ export default defineConfig({
 					rename: { stripBase: true },
 				},
 				{
-					src: "../gas/main.gs",
+					src: "../gas/*.gs",
 					dest: ".",
 					rename: { stripBase: true },
 				},
