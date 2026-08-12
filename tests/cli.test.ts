@@ -66,6 +66,13 @@ describe("create-gas-starter CLI", () => {
 		expect(
 			fs.readFileSync(path.join(projectDir, "src/gas/mcp.gs"), "utf8"),
 		).toContain('var MCP_SERVER_NAME_ = "spark-tools";');
+		expect(fs.existsSync(path.join(projectDir, "MCP.md"))).toBe(true);
+		expect(
+			fs.readFileSync(path.join(projectDir, "README.md"), "utf8"),
+		).toContain("[MCP.md](MCP.md)");
+		expect(
+			fs.readFileSync(path.join(projectDir, "AGENTS.md"), "utf8"),
+		).toContain("MCP Tools adapter: `MCP.md`");
 	});
 
 	test("existing scaffold remains unchanged without --mcp", () => {

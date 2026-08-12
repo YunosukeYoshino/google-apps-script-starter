@@ -66,6 +66,20 @@ if (includeMcp) {
 			`var MCP_SERVER_NAME_ = ${JSON.stringify(projectName)};`,
 		),
 	);
+	fs.appendFileSync(
+		path.resolve(targetDir, "README.md"),
+		"\n\n## Gemini Spark MCP\n\nSetup, tool registration, security, and compatibility: [MCP.md](MCP.md).\n",
+	);
+	const agentsPath = path.resolve(targetDir, "AGENTS.md");
+	const agentsSource = fs.readFileSync(agentsPath, "utf8");
+	fs.writeFileSync(
+		agentsPath,
+		agentsSource.replace(
+			"Keep public web apps at `src/gas/appsscript.json` with `webapp.access` set to `ANYONE`.",
+			"Keep the MCP Web app at `src/gas/appsscript.json` with `webapp.access` set to `ANYONE_ANONYMOUS`.",
+		) +
+			"\n\n## MCP Tools\n\n- MCP Tools adapter: `MCP.md`\n- Edit `src/gas/mcp.gs`; expose only handlers explicitly registered in `MCP_TOOLS_`.\n- Treat the tokenized connection URL as a secret.\n",
+	);
 }
 fs.renameSync(
 	path.resolve(targetDir, "gitignore"),

@@ -10,6 +10,16 @@ The npm source for `create-gas-starter`, a CLI that scaffolds Google Apps Script
 npx @yunosukeyoshino/google-apps-script-starter my-gas-project
 ```
 
+To include a Gemini Spark-compatible MCP Tools adapter:
+
+```bash
+npx @yunosukeyoshino/google-apps-script-starter my-gas-project --mcp
+```
+
+The adapter exposes explicitly registered Apps Script functions through
+`tools/list` and `tools/call`. The generated `MCP.md` covers deployment, token
+setup, Spark connection, security, and GAS compatibility limits.
+
 The generated project documentation lives in [`template/README.md`](template/README.md).
 
 ## Repository structure
