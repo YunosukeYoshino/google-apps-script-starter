@@ -1,12 +1,12 @@
 /**
  * Gemini Sparkから呼び出すMCP Toolsアダプター。
  */
-var MCP_TOKEN_PROPERTY_ = "MCP_SHARED_SECRET";
-var MCP_SERVER_NAME_ = "my-gas-project";
-var MCP_SERVER_VERSION_ = "1.0.0";
-var MCP_FALLBACK_PROTOCOL_VERSION_ = "2025-06-18";
-var MCP_SUPPORTED_PROTOCOL_VERSIONS_ = ["2025-06-18", "2025-03-26"];
-var MCP_TOOLS_ = [
+const MCP_TOKEN_PROPERTY_ = "MCP_SHARED_SECRET";
+const MCP_SERVER_NAME_ = "my-gas-project";
+const MCP_SERVER_VERSION_ = "1.0.0";
+const MCP_FALLBACK_PROTOCOL_VERSION_ = "2025-06-18";
+const MCP_SUPPORTED_PROTOCOL_VERSIONS_ = ["2025-06-18", "2025-03-26"];
+const MCP_TOOLS_ = [
 	{
 		name: "get_server_time",
 		description: "現在のサーバー時刻を確認したいと言われたときに使う。",
@@ -26,10 +26,11 @@ var MCP_TOOLS_ = [
 		},
 		annotations: { readOnlyHint: true },
 		handler: function (args) {
-			var name = String(args.name || "")
+			const normalizedName = String(args.name || "")
 				.trim()
 				.slice(0, 80);
-			return "こんにちは、" + (name || "world") + "さん。";
+			const recipient = normalizedName || "world";
+			return "こんにちは、" + recipient + "さん。";
 		},
 	},
 ];
@@ -46,7 +47,7 @@ function doPost(e) {
 		return mcpJsonOutput_(mcpRpcError_(null, -32001, "認証に失敗しました。"));
 	}
 
-	var message;
+	let message;
 	try {
 		message = JSON.parse(
 			e && e.postData && e.postData.contents ? e.postData.contents : "",
@@ -62,7 +63,7 @@ function doPost(e) {
 		);
 	}
 
-	var response = handleMcpRpc_(message);
+	const response = handleMcpRpc_(message);
 	return response === null ? mcpEmptyOutput_() : mcpJsonOutput_(response);
 }
 
@@ -71,72 +72,97 @@ function doPost(e) {
  * @return {*} JSON-RPCレスポンス
  */
 function handleMcpRpc_(message) {
-	var id = message && message.id;
-	var method = message && message.method;
-	var params = (message && message.params) || {};
+	const id = message && message.id;
+	const method = message && message.method;
+	const params = (message && message.params) || {};
 
 	if (method === "initialize") {
-		var requestedVersion = params.protocolVersion;
-		var protocolVersion =
-			MCP_SUPPORTED_PROTOCOL_VERSIONS_.indexOf(requestedVersion) >= 0
-				? requestedVersion
-				: MCP_FALLBACK_PROTOCOL_VERSION_;
-		return mcpRpcResult_(id, {
-			protocolVersion: protocolVersion,
-			capabilities: { tools: { listChanged: false } },
-			serverInfo: {
-				name: MCP_SERVER_NAME_,
-				version: MCP_SERVER_VERSION_,
-			},
-		});
+		return mcpInitializeResult_(id, params);
 	}
-
 	if (method === "ping") {
 		return mcpRpcResult_(id, {});
 	}
-
 	if (method === "tools/list") {
-		return mcpRpcResult_(id, {
-			tools: MCP_TOOLS_.map(function (tool) {
-				return {
-					name: tool.name,
-					description: tool.description,
-					inputSchema: tool.inputSchema,
-					annotations: tool.annotations,
-				};
-			}),
-		});
+		return mcpToolsListResult_(id);
 	}
-
 	if (method === "tools/call") {
-		try {
-			var value = runMcpTool_(params.name, params.arguments || {});
-			return mcpRpcResult_(id, {
-				content: [
-					{
-						type: "text",
-						text: typeof value === "string" ? value : JSON.stringify(value),
-					},
-				],
-			});
-		} catch (error) {
-			Logger.log(error && error.stack ? error.stack : String(error));
-			return mcpRpcResult_(id, {
-				content: [
-					{
-						type: "text",
-						text: "ツールの実行に失敗しました。入力値を確認してください。",
-					},
-				],
-				isError: true,
-			});
-		}
+		return mcpToolsCallResult_(id, params);
 	}
-
 	if (id === undefined || id === null) {
 		return null;
 	}
 	return mcpRpcError_(id, -32601, "未対応のメソッドです。");
+}
+
+/**
+ * @param {*} id JSON-RPC ID
+ * @param {*} params initializeパラメータ
+ * @return {*} JSON-RPCレスポンス
+ */
+function mcpInitializeResult_(id, params) {
+	const requestedVersion = params.protocolVersion;
+	const protocolVersion =
+		MCP_SUPPORTED_PROTOCOL_VERSIONS_.indexOf(requestedVersion) >= 0
+			? requestedVersion
+			: MCP_FALLBACK_PROTOCOL_VERSION_;
+	return mcpRpcResult_(id, {
+		protocolVersion: protocolVersion,
+		capabilities: { tools: { listChanged: false } },
+		serverInfo: {
+			name: MCP_SERVER_NAME_,
+			version: MCP_SERVER_VERSION_,
+		},
+	});
+}
+
+/**
+ * @param {*} id JSON-RPC ID
+ * @return {*} JSON-RPCレスポンス
+ */
+function mcpToolsListResult_(id) {
+	return mcpRpcResult_(id, {
+		tools: MCP_TOOLS_.map(function (tool) {
+			return {
+				name: tool.name,
+				description: tool.description,
+				inputSchema: tool.inputSchema,
+				annotations: tool.annotations,
+			};
+		}),
+	});
+}
+
+/**
+ * @param {*} id JSON-RPC ID
+ * @param {*} params tools/callパラメータ
+ * @return {*} JSON-RPCレスポンス
+ */
+function mcpToolsCallResult_(id, params) {
+	try {
+		const toolResult = runMcpTool_(params.name, params.arguments || {});
+		return mcpRpcResult_(id, {
+			content: [
+				{
+					type: "text",
+					text:
+						typeof toolResult === "string"
+							? toolResult
+							: JSON.stringify(toolResult),
+				},
+			],
+		});
+	} catch (error) {
+		Logger.log(error && error.stack ? error.stack : String(error));
+		return mcpRpcResult_(id, {
+			content: [
+				{
+					type: "text",
+					text: "ツールの実行に失敗しました。入力値を確認してください。",
+				},
+			],
+			isError: true,
+		});
+	}
 }
 
 /**
@@ -145,8 +171,8 @@ function handleMcpRpc_(message) {
  * @return {*} ツール実行結果
  */
 function runMcpTool_(name, args) {
-	for (var index = 0; index < MCP_TOOLS_.length; index += 1) {
-		var tool = MCP_TOOLS_[index];
+	for (let index = 0; index < MCP_TOOLS_.length; index += 1) {
+		const tool = MCP_TOOLS_[index];
 		if (tool.name === name) {
 			validateMcpToolArgs_(tool, args);
 			return tool.handler(args);
@@ -160,41 +186,50 @@ function runMcpTool_(name, args) {
  * @param {Object<string, *>} args ツール引数
  */
 function validateMcpToolArgs_(tool, args) {
-	var required = tool.inputSchema.required || [];
-	for (var index = 0; index < required.length; index += 1) {
+	const required = tool.inputSchema.required || [];
+	for (let index = 0; index < required.length; index += 1) {
 		if (args[required[index]] === undefined) {
 			throw new Error("必須の引数がありません: " + required[index]);
 		}
 	}
 
-	var properties = tool.inputSchema.properties || {};
-	var names = Object.keys(properties);
+	const properties = tool.inputSchema.properties || {};
+	const names = Object.keys(properties);
 	for (
-		var propertyIndex = 0;
+		let propertyIndex = 0;
 		propertyIndex < names.length;
 		propertyIndex += 1
 	) {
-		var name = names[propertyIndex];
+		const name = names[propertyIndex];
 		if (args[name] === undefined) {
 			continue;
 		}
-		var expectedType = properties[name].type;
-		var actualType = Array.isArray(args[name])
-			? "array"
-			: args[name] === null
-				? "null"
-				: typeof args[name];
-		if (expectedType && actualType !== expectedType) {
+		const expectedType = properties[name].type;
+		if (expectedType && mcpArgumentType_(args[name]) !== expectedType) {
 			throw new Error("引数の型が正しくありません: " + name);
 		}
 	}
 }
 
 /**
+ * @param {*} argument JSON-RPCツール引数
+ * @return {string} JSON Schemaのtype名
+ */
+function mcpArgumentType_(argument) {
+	if (Array.isArray(argument)) {
+		return "array";
+	}
+	if (argument === null) {
+		return "null";
+	}
+	return typeof argument;
+}
+
+/**
  * @param {?string} token 受信した共有シークレット
  */
 function checkMcpToken_(token) {
-	var expected =
+	const expected =
 		PropertiesService.getScriptProperties().getProperty(MCP_TOKEN_PROPERTY_);
 	if (!expected || !token || token !== expected) {
 		throw new Error("認証に失敗しました。");
@@ -205,27 +240,43 @@ function checkMcpToken_(token) {
  * デプロイ後に共有シークレットを初期化し、Spark接続URLをログへ表示します。
  */
 function setupMcp_() {
-	var baseUrl = getMcpBaseUrl_();
-	var properties = PropertiesService.getScriptProperties();
-	var token = properties.getProperty(MCP_TOKEN_PROPERTY_);
+	const properties = PropertiesService.getScriptProperties();
+	let token = properties.getProperty(MCP_TOKEN_PROPERTY_);
 	if (!token) {
 		token = Utilities.getUuid() + Utilities.getUuid();
 		properties.setProperty(MCP_TOKEN_PROPERTY_, token);
 	}
-	Logger.log(
-		"MCP connection URL: " + baseUrl + "?token=" + encodeURIComponent(token),
-	);
+	logMcpConnectionUrl_(token);
 }
 
 /**
  * 現在の共有シークレットを含むSpark接続URLをログへ表示します。
  */
 function getMcpConnectionUrl_() {
-	var token =
+	const token =
 		PropertiesService.getScriptProperties().getProperty(MCP_TOKEN_PROPERTY_);
 	if (!token) {
 		throw new Error("先にsetupMcp_を実行してください。");
 	}
+	logMcpConnectionUrl_(token);
+}
+
+/**
+ * 共有シークレットを更新し、新しいSpark接続URLをログへ表示します。
+ */
+function rotateMcpToken_() {
+	const token = Utilities.getUuid() + Utilities.getUuid();
+	PropertiesService.getScriptProperties().setProperty(
+		MCP_TOKEN_PROPERTY_,
+		token,
+	);
+	logMcpConnectionUrl_(token);
+}
+
+/**
+ * @param {string} token 共有シークレット
+ */
+function logMcpConnectionUrl_(token) {
 	Logger.log(
 		"MCP connection URL: " +
 			getMcpBaseUrl_() +
@@ -235,25 +286,10 @@ function getMcpConnectionUrl_() {
 }
 
 /**
- * 共有シークレットを更新し、新しいSpark接続URLをログへ表示します。
- */
-function rotateMcpToken_() {
-	var baseUrl = getMcpBaseUrl_();
-	var token = Utilities.getUuid() + Utilities.getUuid();
-	PropertiesService.getScriptProperties().setProperty(
-		MCP_TOKEN_PROPERTY_,
-		token,
-	);
-	Logger.log(
-		"MCP connection URL: " + baseUrl + "?token=" + encodeURIComponent(token),
-	);
-}
-
-/**
  * @return {string} 匿名アクセス可能なWebアプリURL
  */
 function getMcpBaseUrl_() {
-	var url = ScriptApp.getService().getUrl();
+	const url = ScriptApp.getService().getUrl();
 	if (!url) {
 		throw new Error("先にWebアプリをデプロイしてください。");
 	}
@@ -284,11 +320,11 @@ function mcpRpcResult_(id, result) {
 }
 
 /**
- * @param {*} value JSONへ変換する値
+ * @param {*} payload JSONへ変換する値
  * @return {GoogleAppsScript.Content.TextOutput} JSONレスポンス
  */
-function mcpJsonOutput_(value) {
-	return ContentService.createTextOutput(JSON.stringify(value)).setMimeType(
+function mcpJsonOutput_(payload) {
+	return ContentService.createTextOutput(JSON.stringify(payload)).setMimeType(
 		ContentService.MimeType.JSON,
 	);
 }

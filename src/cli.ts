@@ -62,8 +62,8 @@ if (includeMcp) {
 	fs.writeFileSync(
 		mcpSourcePath,
 		mcpSource.replace(
-			'var MCP_SERVER_NAME_ = "my-gas-project";',
-			`var MCP_SERVER_NAME_ = ${JSON.stringify(projectName)};`,
+			'const MCP_SERVER_NAME_ = "my-gas-project";',
+			`const MCP_SERVER_NAME_ = ${JSON.stringify(projectName)};`,
 		),
 	);
 	fs.appendFileSync(
