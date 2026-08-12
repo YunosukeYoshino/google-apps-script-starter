@@ -8,7 +8,29 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 	return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-const projectName = process.argv[2] ?? "my-gas-project";
+const cliArgs = process.argv.slice(2);
+if (cliArgs.includes("--help")) {
+	console.log(`Usage: create-gas-starter [project-name] [--mcp]
+
+Options:
+  --mcp   Include a Gemini Spark-compatible MCP Tools adapter.
+  --help  Show this help message.`);
+	process.exit(0);
+}
+const unknownOption = cliArgs.find(
+	(arg) => arg.startsWith("-") && arg !== "--mcp",
+);
+if (unknownOption) {
+	console.error(`Error: Unknown option "${unknownOption}".`);
+	process.exit(1);
+}
+const includeMcp = cliArgs.includes("--mcp");
+const positionalArgs = cliArgs.filter((arg) => arg !== "--mcp");
+if (positionalArgs.length > 1) {
+	console.error("Error: Specify only one project name.");
+	process.exit(1);
+}
+const projectName = positionalArgs[0] ?? "my-gas-project";
 const targetDir = path.resolve(process.cwd(), projectName);
 
 if (fs.existsSync(targetDir)) {
@@ -21,7 +43,30 @@ console.log(`Creating a new Google Apps Script project in ${targetDir}...`);
 // Bun resolves the template root from the current module directory.
 // Source: https://bun.sh/docs/guides/util/import-meta-dir
 const templateDir = path.resolve(import.meta.dir, "..", "template");
-fs.cpSync(templateDir, targetDir, { recursive: true });
+const templateOptionsDir = path.resolve(templateDir, ".options");
+fs.cpSync(templateDir, targetDir, {
+	recursive: true,
+	filter(source) {
+		return (
+			source !== templateOptionsDir &&
+			!source.startsWith(`${templateOptionsDir}${path.sep}`)
+		);
+	},
+});
+if (includeMcp) {
+	fs.cpSync(path.resolve(templateOptionsDir, "mcp"), targetDir, {
+		recursive: true,
+	});
+	const mcpSourcePath = path.resolve(targetDir, "src", "gas", "mcp.gs");
+	const mcpSource = fs.readFileSync(mcpSourcePath, "utf8");
+	fs.writeFileSync(
+		mcpSourcePath,
+		mcpSource.replace(
+			'var MCP_SERVER_NAME_ = "my-gas-project";',
+			`var MCP_SERVER_NAME_ = ${JSON.stringify(projectName)};`,
+		),
+	);
+}
 fs.renameSync(
 	path.resolve(targetDir, "gitignore"),
 	path.resolve(targetDir, ".gitignore"),

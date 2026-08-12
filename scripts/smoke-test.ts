@@ -11,6 +11,8 @@ const repoRoot = path.resolve(
 const workDir = fs.mkdtempSync(path.join(os.tmpdir(), "gas-starter-smoke-"));
 const projectName = "smoke-test-project";
 const projectDir = path.join(workDir, projectName);
+const mcpProjectName = "smoke-test-mcp-project";
+const mcpProjectDir = path.join(workDir, mcpProjectName);
 const cliPath = path.join(repoRoot, "src", "cli.ts");
 
 try {
@@ -56,6 +58,25 @@ try {
 		throw new Error(
 			"dist/main.gs is missing the HtmlOutput serving or getServerTime function",
 		);
+	}
+
+	execFileSync("bun", [cliPath, mcpProjectName, "--mcp"], {
+		cwd: workDir,
+		stdio: "inherit",
+	});
+	execFileSync("bun", ["run", "build"], {
+		cwd: mcpProjectDir,
+		stdio: "inherit",
+	});
+	for (const requiredPath of [
+		"src/gas/mcp.gs",
+		"dist/mcp.gs",
+		"dist/main.gs",
+		"dist/appsscript.json",
+	]) {
+		if (!fs.existsSync(path.join(mcpProjectDir, requiredPath))) {
+			throw new Error(`MCP scaffold is missing ${requiredPath}`);
+		}
 	}
 
 	console.log("Smoke test passed.");
