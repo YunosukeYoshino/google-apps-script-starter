@@ -278,4 +278,35 @@ describe("Contact API - doPost normal flow", () => {
 		expect(userMail?.subject).toContain("自動返信");
 		expect(userMail?.body).toContain("山田 太郎");
 	});
+
+	test("silently ignores submission and does not send email when honeypot is filled", () => {
+		const harness = createApiHarness({
+			properties: {
+				SPREADSHEET_ID: "test-sheet-id",
+				SHEET_NAME: "お問い合わせ",
+				ADMIN_EMAIL: "admin@example.com",
+			},
+		});
+
+		const payload = {
+			name: "Spam Bot",
+			email: "bot@spam.com",
+			message: "Buy cheap meds now!",
+			honeypot: "I am a bot",
+		};
+
+		const output = harness.post({
+			postData: { contents: JSON.stringify(payload) },
+		});
+		const json = JSON.parse(output.getContent());
+
+		expect(json.success).toBe(true);
+
+		// スプレッドシートに保存されていないこと
+		const ss = harness.spreadsheets.get("test-sheet-id");
+		expect(ss?.sheets.length ?? 0).toBe(0);
+
+		// メールが送信されていないこと
+		expect(harness.sentEmails.length).toBe(0);
+	});
 });

@@ -50,6 +50,15 @@ function doPost(e) {
 		const email = String(data.email ?? "").trim();
 		const category = String(data.category ?? "").trim() || "未指定";
 		const message = String(data.message ?? "").trim();
+		const honeypot = String(data.honeypot ?? "").trim();
+
+		// ハニーポット（非表示フィールド）に値がある場合はbotとみなして無視（成功を偽装）
+		if (honeypot) {
+			return createJsonResponse({
+				success: true,
+				message: "お問い合わせを受け付けました。",
+			});
+		}
 
 		if (!name || !email || !message) {
 			return createJsonResponse({
