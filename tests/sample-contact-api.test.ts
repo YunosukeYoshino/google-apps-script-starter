@@ -183,3 +183,35 @@ describe("Contact API - doGet", () => {
 		expect(output.getMimeType()).toBe("application/json");
 	});
 });
+
+describe("Contact API - doPost validation", () => {
+	test("returns error when request body is empty", () => {
+		const harness = createApiHarness();
+		const output = harness.post({});
+		const json = JSON.parse(output.getContent());
+
+		expect(json.success).toBe(false);
+		expect(json.message).toContain("リクエストボディ");
+		expect(output.getMimeType()).toBe("application/json");
+	});
+
+	test("returns error when JSON parsing fails", () => {
+		const harness = createApiHarness();
+		const output = harness.post({ postData: { contents: "invalid-json" } });
+		const json = JSON.parse(output.getContent());
+
+		expect(json.success).toBe(false);
+		expect(json.message).toContain("無効なJSON");
+	});
+
+	test("returns error when required fields are missing", () => {
+		const harness = createApiHarness();
+		const output = harness.post({
+			postData: { contents: JSON.stringify({ name: "Alice" }) },
+		});
+		const json = JSON.parse(output.getContent());
+
+		expect(json.success).toBe(false);
+		expect(json.message).toContain("必須項目");
+	});
+});
