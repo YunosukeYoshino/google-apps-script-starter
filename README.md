@@ -28,6 +28,7 @@ The generated project documentation lives in [`template/README.md`](template/REA
 src/          CLI package source
 template/     Files copied into generated projects
 sample/       Runnable GAS Web app example
+sample-mcp/   Runnable Gemini Spark MCP + Spreadsheet example
 scripts/      Repository support and smoke tests
 ```
 
@@ -41,9 +42,12 @@ bun run build
 bun run test:smoke
 bun run sample:typecheck
 bun run sample:build
+bun run sample-mcp:typecheck
+bun run sample-mcp:build
 ```
 
 The runnable browser-to-GAS example is documented in [`sample/README.md`](sample/README.md).
+The Spreadsheet MCP example is documented in [`sample-mcp/README.md`](sample-mcp/README.md).
 
 ## Contributing
 

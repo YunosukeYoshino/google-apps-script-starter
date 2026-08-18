@@ -19,6 +19,8 @@ bun run build
 bun run test:smoke
 bun run sample:typecheck
 bun run sample:build
+bun run sample-mcp:typecheck
+bun run sample-mcp:build
 ```
 
 ## Branching
