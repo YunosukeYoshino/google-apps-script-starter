@@ -35,7 +35,7 @@ bun run build
 
 ```bash
 bunx clasp login
-bunx clasp create --type webapp --rootDir ./dist --title "MCP Spreadsheet sample"
+bunx clasp create --type standalone --rootDir ./dist --title "MCP Spreadsheet sample"
 bun run deploy
 ```
 

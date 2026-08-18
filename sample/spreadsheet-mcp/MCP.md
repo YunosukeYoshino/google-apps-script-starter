@@ -7,7 +7,7 @@ Gemini Spark 向けの実験的 MCP Tools アダプターです。同期の `too
 
 1. `README.md` の手順で Apps Script プロジェクトを作成する。
 2. `bun run deploy` でビルドを push し、Web app をデプロイする。
-3. `bunx clasp open` でエディタを開き、`setupMcp_` を1回実行する。
+3. `bunx clasp open-script` でエディタを開き、`setupMcp_` を1回実行する。
 4. 実行ログの `MCP connection URL` を Gemini Spark の custom MCP server 設定へコピーする。
 
 `setupMcp_` は既存トークンを保持し、未作成ならデモ用スプレッドシート

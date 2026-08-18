@@ -38,6 +38,7 @@ bun install
 bun run lint
 bun run typecheck
 bun run build
+bun run test
 bun run test:smoke
 bun run sample:typecheck
 bun run sample:build

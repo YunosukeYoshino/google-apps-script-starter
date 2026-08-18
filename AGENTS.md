@@ -1,5 +1,5 @@
 ---
-last-validated: 2026-08-13
+last-validated: 2026-08-19
 ---
 
 # Agent Instructions
@@ -26,13 +26,14 @@ bun run dev
 bun run lint
 bun run typecheck
 bun run build
+bun run test
 bun run test:smoke
 ```
 
 Run other repository scripts through `package.json`. Commands that call clasp directly must run against the template project:
 
 ```bash
-bunx --cwd template clasp open
+bunx --cwd template clasp open-script
 bunx --cwd template clasp logs --watch
 ```
 

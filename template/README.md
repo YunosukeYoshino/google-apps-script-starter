@@ -59,10 +59,10 @@ The project integrates high-performance tools to ensure a robust developer exper
    bunx clasp login
    ```
 
-3. Create a GAS web app project with `rootDir` set to `dist`:
+3. Create a GAS standalone script with `rootDir` set to `dist` (web app publishing comes from the manifest's `webapp.access`):
 
    ```bash
-   bunx clasp create --type webapp --rootDir ./dist --title "My GAS Web App"
+   bunx clasp create --type standalone --rootDir ./dist --title "My GAS Web App"
    ```
 
    This writes `.clasp.json` with `"rootDir": "dist"`. clasp 3 does not transpile TypeScript; Vite builds into `dist/` before push.

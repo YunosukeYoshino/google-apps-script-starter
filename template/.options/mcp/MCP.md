@@ -9,7 +9,7 @@ gateway.
 
 1. Log in and create the Apps Script project as described in `README.md`.
 2. Run `bun run deploy` to push the build and create a Web app deployment.
-3. Open the Apps Script editor with `bunx clasp open`.
+3. Open the Apps Script editor with `bunx clasp open-script`.
 4. Select `setupMcp_` in the editor and run it once.
 5. Copy the `MCP connection URL` from the execution log into Gemini Spark's
    custom MCP server configuration.

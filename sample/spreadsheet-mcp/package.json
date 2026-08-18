@@ -9,7 +9,7 @@
 		"lint": "oxlint .",
 		"push": "bun run build && clasp push --force",
 		"deploy": "bun run push && clasp deploy -d \"MCP Spreadsheet sample\"",
-		"open": "clasp open"
+		"open": "clasp open-script"
 	},
 	"dependencies": {
 		"@base-ui/react": "^1.6.0",
