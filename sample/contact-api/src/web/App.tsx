@@ -19,9 +19,7 @@ import {
 } from "./client";
 
 export default function App() {
-	const [apiUrl, setApiUrl] = useState(
-		"https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec",
-	);
+	const [apiUrl, setApiUrl] = useState("");
 	const [formData, setFormData] = useState<ContactFormData>({
 		name: "",
 		email: "",
@@ -35,6 +33,12 @@ export default function App() {
 	const [error, setError] = useState<string | null>(null);
 
 	const handleHealthCheck = async () => {
+		if (!apiUrl || apiUrl.includes("YOUR_DEPLOYMENT_ID")) {
+			setError(
+				"GAS Web Appの実際のデプロイURLを入力してください（例: https://script.google.com/macros/s/AKfycb.../exec）",
+			);
+			return;
+		}
 		setCheckingHealth(true);
 		setError(null);
 		try {
@@ -42,7 +46,9 @@ export default function App() {
 			setResponse(res);
 		} catch (err: unknown) {
 			const msg = err instanceof Error ? err.message : String(err);
-			setError(`疎通確認エラー: ${msg}`);
+			setError(
+				`疎通確認エラー (${msg}): GASのデプロイ設定で「アクセスできるユーザー」が「全員 (Anyone)」になっているか確認してください。`,
+			);
 			setResponse(null);
 		} finally {
 			setCheckingHealth(false);
@@ -51,6 +57,12 @@ export default function App() {
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+		if (!apiUrl || apiUrl.includes("YOUR_DEPLOYMENT_ID")) {
+			setError(
+				"GAS Web Appの実際のデプロイURLを入力してください（例: https://script.google.com/macros/s/AKfycb.../exec）",
+			);
+			return;
+		}
 		setLoading(true);
 		setError(null);
 		setResponse(null);
