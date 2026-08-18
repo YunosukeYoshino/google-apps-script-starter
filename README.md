@@ -17,7 +17,7 @@ npx @yunosukeyoshino/google-apps-script-starter my-gas-project --mcp
 ```
 
 The adapter exposes explicitly registered Apps Script functions through
-`tools/list` and `tools/call`. The generated `MCP.md` covers deployment, token
+`tools/list` and `tools/call`. The scaffolded [MCP documentation](template/.options/mcp/MCP.md) covers deployment, token
 setup, Spark connection, security, and GAS compatibility limits.
 
 The generated project documentation lives in [`template/README.md`](template/README.md).
@@ -27,7 +27,7 @@ The generated project documentation lives in [`template/README.md`](template/REA
 ```text
 src/          CLI package source
 template/     Files copied into generated projects
-sample/       Runnable examples (greeting, spreadsheet-mcp)
+sample/       Runnable examples (greeting, spreadsheet-mcp, contact-api)
 scripts/      Repository support and smoke tests
 ```
 
@@ -44,6 +44,8 @@ bun run sample:typecheck
 bun run sample:build
 bun run sample:spreadsheet-mcp:typecheck
 bun run sample:spreadsheet-mcp:build
+bun run sample:contact-api:typecheck
+bun run sample:contact-api:build
 ```
 
 Runnable examples are listed in [`sample/README.md`](sample/README.md).
