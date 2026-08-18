@@ -250,6 +250,14 @@ function setupMcp_() {
 }
 
 /**
+ * setupMcp_ を実行します。アンダースコアで始まる関数はエディタの関数セレクタに
+ * 表示されないため、公開用の別名を用意しています。
+ */
+function setupMcp() {
+	setupMcp_();
+}
+
+/**
  * 現在の共有シークレットを含むSpark接続URLをログへ表示します。
  */
 function getMcpConnectionUrl_() {
