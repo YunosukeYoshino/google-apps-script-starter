@@ -22,7 +22,8 @@
 	"workspaces": [
 		"template",
 		"sample/greeting",
-		"sample/spreadsheet-mcp"
+		"sample/spreadsheet-mcp",
+		"sample/contact-api"
 	],
 	"files": [
 		"src/",
@@ -56,7 +57,7 @@
 		"deployments": "bun run --cwd template deployments",
 		"open": "bun run --cwd template open",
 		"lint": "oxlint .",
-		"typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p template/tsconfig.json && tsc --noEmit -p sample/greeting/tsconfig.json && tsc --noEmit -p sample/spreadsheet-mcp/tsconfig.json",
+		"typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p template/tsconfig.json && tsc --noEmit -p sample/greeting/tsconfig.json && tsc --noEmit -p sample/spreadsheet-mcp/tsconfig.json && tsc --noEmit -p sample/contact-api/tsconfig.json",
 		"test": "bun test",
 		"lint:fix": "oxlint --fix .",
 		"format": "oxfmt",
@@ -66,7 +67,9 @@
 		"sample:typecheck": "bun run --cwd sample/greeting typecheck",
 		"prepare": "husky",
 		"sample:spreadsheet-mcp:build": "bun run --cwd sample/spreadsheet-mcp build",
-		"sample:spreadsheet-mcp:typecheck": "bun run --cwd sample/spreadsheet-mcp typecheck"
+		"sample:spreadsheet-mcp:typecheck": "bun run --cwd sample/spreadsheet-mcp typecheck",
+		"sample:contact-api:build": "bun run --cwd sample/contact-api build",
+		"sample:contact-api:typecheck": "bun run --cwd sample/contact-api typecheck"
 	},
 	"devDependencies": {
 		"@google/clasp": "^3.1.3",

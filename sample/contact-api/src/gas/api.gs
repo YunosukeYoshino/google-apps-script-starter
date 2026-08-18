@@ -63,14 +63,19 @@ function doPost(e) {
 		if (!name || !email || !message) {
 			return createJsonResponse({
 				success: false,
-				message: "必須項目（お名前、メールアドレス、メッセージ）が不足しています。",
+				message:
+					"必須項目（お名前、メールアドレス、メッセージ）が不足しています。",
 			});
 		}
 
 		// 設定値の取得
 		const scriptProperties = PropertiesService.getScriptProperties();
-		const turnstileSecret = scriptProperties.getProperty("TURNSTILE_SECRET_KEY");
-		const allowedHostname = scriptProperties.getProperty("TURNSTILE_ALLOWED_HOSTNAME");
+		const turnstileSecret = scriptProperties.getProperty(
+			"TURNSTILE_SECRET_KEY",
+		);
+		const allowedHostname = scriptProperties.getProperty(
+			"TURNSTILE_ALLOWED_HOSTNAME",
+		);
 
 		// Cloudflare Turnstile認証が設定されている場合の検証
 		if (turnstileSecret) {
@@ -82,7 +87,10 @@ function doPost(e) {
 				});
 			}
 
-			const verifyResult = verifyTurnstileToken(turnstileSecret, turnstileToken);
+			const verifyResult = verifyTurnstileToken(
+				turnstileSecret,
+				turnstileToken,
+			);
 			if (!verifyResult.success) {
 				return createJsonResponse({
 					success: false,
@@ -99,7 +107,8 @@ function doPost(e) {
 		}
 
 		const spreadsheetId = scriptProperties.getProperty("SPREADSHEET_ID");
-		const sheetName = scriptProperties.getProperty("SHEET_NAME") || "お問い合わせ";
+		const sheetName =
+			scriptProperties.getProperty("SHEET_NAME") || "お問い合わせ";
 		const adminEmail = scriptProperties.getProperty("ADMIN_EMAIL");
 
 		// スプレッドシートへの記録
@@ -115,12 +124,22 @@ function doPost(e) {
 		}
 
 		const now = new Date();
-		const formattedDate = Utilities.formatDate(now, "Asia/Tokyo", "yyyy/MM/dd HH:mm:ss");
+		const formattedDate = Utilities.formatDate(
+			now,
+			"Asia/Tokyo",
+			"yyyy/MM/dd HH:mm:ss",
+		);
 
 		if (ss) {
 			const sheet = ss.getSheetByName(sheetName) || ss.insertSheet(sheetName);
 			if (sheet.getLastRow() === 0) {
-				sheet.appendRow(["日時", "お名前", "メールアドレス", "種別", "お問い合わせ内容"]);
+				sheet.appendRow([
+					"日時",
+					"お名前",
+					"メールアドレス",
+					"種別",
+					"お問い合わせ内容",
+				]);
 			}
 			sheet.appendRow([formattedDate, name, email, category, message]);
 		}
@@ -131,11 +150,11 @@ function doPost(e) {
 				adminEmail,
 				`【お問い合わせ】${name} 様より`,
 				`Webサイトから新しいお問い合わせを受信しました。\n\n` +
-				`■ 日時: ${formattedDate}\n` +
-				`■ お名前: ${name}\n` +
-				`■ メールアドレス: ${email}\n` +
-				`■ 種別: ${category}\n\n` +
-				`■ お問い合わせ内容:\n${message}`,
+					`■ 日時: ${formattedDate}\n` +
+					`■ お名前: ${name}\n` +
+					`■ メールアドレス: ${email}\n` +
+					`■ 種別: ${category}\n\n` +
+					`■ お問い合わせ内容:\n${message}`,
 			);
 		}
 
@@ -145,13 +164,13 @@ function doPost(e) {
 				email,
 				"【自動返信】お問い合わせを受け付けました",
 				`${name} 様\n\n` +
-				`お問い合わせありがとうございます。以下の内容で受け付けいたしました。\n\n` +
-				`----------------------------------------\n` +
-				`■ お名前: ${name}\n` +
-				`■ 種別: ${category}\n` +
-				`■ お問い合わせ内容:\n${message}\n` +
-				`----------------------------------------\n\n` +
-				`内容を確認の上、担当者より順次ご連絡差し上げます。`,
+					`お問い合わせありがとうございます。以下の内容で受け付けいたしました。\n\n` +
+					`----------------------------------------\n` +
+					`■ お名前: ${name}\n` +
+					`■ 種別: ${category}\n` +
+					`■ お問い合わせ内容:\n${message}\n` +
+					`----------------------------------------\n\n` +
+					`内容を確認の上、担当者より順次ご連絡差し上げます。`,
 			);
 		}
 

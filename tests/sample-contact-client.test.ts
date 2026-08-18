@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, mock, test } from "bun:test";
+
 import {
 	type ContactFormData,
 	checkHealth,
@@ -10,7 +11,7 @@ describe("Contact API Client", () => {
 	const mockFetch = mock();
 
 	beforeEach(() => {
-		globalThis.fetch = mockFetch as any;
+		globalThis.fetch = mockFetch as unknown as typeof fetch;
 		mockFetch.mockClear();
 	});
 
@@ -49,9 +50,7 @@ describe("Contact API Client", () => {
 		const [url, options] = mockFetch.mock.calls[0];
 		expect(url).toBe("https://script.google.com/macros/s/TEST/exec");
 		expect(options.method).toBe("POST");
-		expect(options.headers["Content-Type"]).toBe(
-			"text/plain;charset=utf-8",
-		);
+		expect(options.headers["Content-Type"]).toBe("text/plain;charset=utf-8");
 		expect(JSON.parse(options.body)).toEqual(formData);
 	});
 

@@ -4,10 +4,7 @@ import path from "node:path";
 import vm from "node:vm";
 
 const repoRoot = path.resolve(import.meta.dir, "..");
-const apiSourcePath = path.join(
-	repoRoot,
-	"sample/contact-api/src/gas/api.gs",
-);
+const apiSourcePath = path.join(repoRoot, "sample/contact-api/src/gas/api.gs");
 
 type FakeEmail = {
 	body: string;
@@ -79,7 +76,7 @@ function createApiHarness(options: HarnessOptions = {}) {
 	);
 	const sentEmails: FakeEmail[] = [];
 	const spreadsheets = new Map<string, FakeSpreadsheet>();
-	const fetchCalls: Array<{ url: string; params?: any }> = [];
+	const fetchCalls: Array<{ url: string; params?: unknown }> = [];
 
 	const context = vm.createContext({
 		ContentService: {
@@ -94,8 +91,8 @@ function createApiHarness(options: HarnessOptions = {}) {
 			},
 		},
 		MailApp: {
-			sendEmail(options: { to: string; subject: string; body: string }) {
-				sentEmails.push({ ...options });
+			sendEmail(mailOptions: { to: string; subject: string; body: string }) {
+				sentEmails.push({ ...mailOptions });
 			},
 		},
 		PropertiesService: {
@@ -129,7 +126,7 @@ function createApiHarness(options: HarnessOptions = {}) {
 			},
 		},
 		UrlFetchApp: {
-			fetch(url: string, params?: any) {
+			fetch(url: string, params?: unknown) {
 				fetchCalls.push({ url, params });
 				return {
 					getContentText() {
@@ -158,11 +155,11 @@ function createApiHarness(options: HarnessOptions = {}) {
 	}
 
 	return {
-		get(event: any = {}) {
+		get(event: unknown = {}) {
 			context.event = event;
 			return vm.runInContext("doGet(event)", context);
 		},
-		post(event: any = {}) {
+		post(event: unknown = {}) {
 			context.event = event;
 			return vm.runInContext("doPost(event)", context);
 		},
@@ -340,7 +337,10 @@ describe("Contact API - Turnstile verification", () => {
 				TURNSTILE_SECRET_KEY: "0x4AAAAAA...",
 			},
 			urlFetchResponse: {
-				content: JSON.stringify({ success: false, "error-codes": ["invalid-input-response"] }),
+				content: JSON.stringify({
+					success: false,
+					"error-codes": ["invalid-input-response"],
+				}),
 			},
 		});
 
