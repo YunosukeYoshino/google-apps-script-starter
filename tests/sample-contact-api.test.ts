@@ -310,3 +310,112 @@ describe("Contact API - doPost normal flow", () => {
 		expect(harness.sentEmails.length).toBe(0);
 	});
 });
+
+describe("Contact API - Turnstile verification", () => {
+	test("fails when TURNSTILE_SECRET_KEY is set but token is missing", () => {
+		const harness = createApiHarness({
+			properties: {
+				TURNSTILE_SECRET_KEY: "0x4AAAAAA...",
+			},
+		});
+
+		const payload = {
+			name: "Bob",
+			email: "bob@example.com",
+			message: "Hello",
+		};
+
+		const output = harness.post({
+			postData: { contents: JSON.stringify(payload) },
+		});
+		const json = JSON.parse(output.getContent());
+
+		expect(json.success).toBe(false);
+		expect(json.message).toContain("認証");
+	});
+
+	test("fails when Cloudflare rejects the turnstile token", () => {
+		const harness = createApiHarness({
+			properties: {
+				TURNSTILE_SECRET_KEY: "0x4AAAAAA...",
+			},
+			urlFetchResponse: {
+				content: JSON.stringify({ success: false, "error-codes": ["invalid-input-response"] }),
+			},
+		});
+
+		const payload = {
+			name: "Bob",
+			email: "bob@example.com",
+			message: "Hello",
+			turnstileToken: "invalid-token",
+		};
+
+		const output = harness.post({
+			postData: { contents: JSON.stringify(payload) },
+		});
+		const json = JSON.parse(output.getContent());
+
+		expect(json.success).toBe(false);
+		expect(json.message).toContain("認証に失敗");
+		expect(harness.fetchCalls.length).toBe(1);
+		expect(harness.fetchCalls[0].url).toContain("cloudflare.com/turnstile");
+	});
+
+	test("fails when hostname does not match TURNSTILE_ALLOWED_HOSTNAME", () => {
+		const harness = createApiHarness({
+			properties: {
+				TURNSTILE_SECRET_KEY: "0x4AAAAAA...",
+				TURNSTILE_ALLOWED_HOSTNAME: "my-site.com",
+			},
+			urlFetchResponse: {
+				content: JSON.stringify({ success: true, hostname: "evil-site.com" }),
+			},
+		});
+
+		const payload = {
+			name: "Bob",
+			email: "bob@example.com",
+			message: "Hello",
+			turnstileToken: "valid-token-wrong-host",
+		};
+
+		const output = harness.post({
+			postData: { contents: JSON.stringify(payload) },
+		});
+		const json = JSON.parse(output.getContent());
+
+		expect(json.success).toBe(false);
+		expect(json.message).toContain("許可されていないオリジン");
+	});
+
+	test("succeeds when Cloudflare validates token and hostname matches", () => {
+		const harness = createApiHarness({
+			properties: {
+				SPREADSHEET_ID: "test-sheet-id",
+				ADMIN_EMAIL: "admin@example.com",
+				TURNSTILE_SECRET_KEY: "0x4AAAAAA...",
+				TURNSTILE_ALLOWED_HOSTNAME: "my-site.com",
+			},
+			urlFetchResponse: {
+				content: JSON.stringify({ success: true, hostname: "my-site.com" }),
+			},
+		});
+
+		const payload = {
+			name: "Bob",
+			email: "bob@example.com",
+			message: "Hello",
+			turnstileToken: "valid-token",
+		};
+
+		const output = harness.post({
+			postData: { contents: JSON.stringify(payload) },
+		});
+		const json = JSON.parse(output.getContent());
+
+		expect(json.success).toBe(true);
+		expect(json.message).toContain("受け付けました");
+		expect(harness.sentEmails.length).toBe(2);
+	});
+});

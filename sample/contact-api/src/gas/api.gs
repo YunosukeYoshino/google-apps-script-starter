@@ -69,6 +69,35 @@ function doPost(e) {
 
 		// 設定値の取得
 		const scriptProperties = PropertiesService.getScriptProperties();
+		const turnstileSecret = scriptProperties.getProperty("TURNSTILE_SECRET_KEY");
+		const allowedHostname = scriptProperties.getProperty("TURNSTILE_ALLOWED_HOSTNAME");
+
+		// Cloudflare Turnstile認証が設定されている場合の検証
+		if (turnstileSecret) {
+			const turnstileToken = String(data.turnstileToken ?? "").trim();
+			if (!turnstileToken) {
+				return createJsonResponse({
+					success: false,
+					message: "認証トークンが指定されていません。",
+				});
+			}
+
+			const verifyResult = verifyTurnstileToken(turnstileSecret, turnstileToken);
+			if (!verifyResult.success) {
+				return createJsonResponse({
+					success: false,
+					message: "認証に失敗しました。再度お試しください。",
+				});
+			}
+
+			if (allowedHostname && verifyResult.hostname !== allowedHostname) {
+				return createJsonResponse({
+					success: false,
+					message: "許可されていないオリジンからの認証リクエストです。",
+				});
+			}
+		}
+
 		const spreadsheetId = scriptProperties.getProperty("SPREADSHEET_ID");
 		const sheetName = scriptProperties.getProperty("SHEET_NAME") || "お問い合わせ";
 		const adminEmail = scriptProperties.getProperty("ADMIN_EMAIL");
@@ -149,4 +178,36 @@ function createJsonResponse(payload) {
 	return ContentService.createTextOutput(JSON.stringify(payload)).setMimeType(
 		ContentService.MimeType.JSON,
 	);
+}
+
+/**
+ * Cloudflare Turnstileトークンを照合・検証します。
+ * @param {string} secretKey
+ * @param {string} token
+ * @return {{ success: boolean, hostname?: string, errorCodes?: string[] }}
+ */
+function verifyTurnstileToken(secretKey, token) {
+	try {
+		const response = UrlFetchApp.fetch(
+			"https://challenges.cloudflare.com/turnstile/v0/siteverify",
+			{
+				method: "post",
+				payload: {
+					secret: secretKey,
+					response: token,
+				},
+				muteHttpExceptions: true,
+			},
+		);
+
+		const result = JSON.parse(response.getContentText());
+		return {
+			success: Boolean(result.success),
+			hostname: result.hostname,
+			errorCodes: result["error-codes"],
+		};
+	} catch (e) {
+		console.error("Turnstile verification error:", e);
+		return { success: false };
+	}
 }
