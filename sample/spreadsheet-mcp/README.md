@@ -25,7 +25,7 @@ src/
 ## Run
 
 ```bash
-cd sample-mcp
+cd sample/spreadsheet-mcp
 bun install
 bun run typecheck
 bun run build

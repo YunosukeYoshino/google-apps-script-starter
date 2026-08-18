@@ -12,8 +12,7 @@ template/dist/
 .env
 .env.local
 .env.*.local
-sample/.clasp.json
-sample-mcp/.clasp.json
+sample/*/.clasp.json
 
 # OS files
 .DS_Store

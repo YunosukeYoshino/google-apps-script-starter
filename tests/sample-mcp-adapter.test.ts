@@ -5,11 +5,11 @@ import vm from "node:vm";
 
 const repoRoot = path.resolve(import.meta.dir, "..");
 const mainSource = fs.readFileSync(
-	path.join(repoRoot, "sample-mcp/src/gas/main.gs"),
+	path.join(repoRoot, "sample/spreadsheet-mcp/src/gas/main.gs"),
 	"utf8",
 );
 const mcpSource = fs.readFileSync(
-	path.join(repoRoot, "sample-mcp/src/gas/mcp.gs"),
+	path.join(repoRoot, "sample/spreadsheet-mcp/src/gas/mcp.gs"),
 	"utf8",
 );
 

@@ -21,8 +21,8 @@
 	},
 	"workspaces": [
 		"template",
-		"sample",
-		"sample-mcp"
+		"sample/greeting",
+		"sample/spreadsheet-mcp"
 	],
 	"files": [
 		"src/",
@@ -56,17 +56,17 @@
 		"deployments": "bun run --cwd template deployments",
 		"open": "bun run --cwd template open",
 		"lint": "oxlint .",
-		"typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p template/tsconfig.json && tsc --noEmit -p sample/tsconfig.json && tsc --noEmit -p sample-mcp/tsconfig.json",
+		"typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p template/tsconfig.json && tsc --noEmit -p sample/greeting/tsconfig.json && tsc --noEmit -p sample/spreadsheet-mcp/tsconfig.json",
 		"test": "bun test",
 		"lint:fix": "oxlint --fix .",
 		"format": "oxfmt",
 		"fmt:check": "oxfmt --check .",
 		"test:smoke": "bun scripts/smoke-test.ts",
-		"sample:build": "bun run --cwd sample build",
-		"sample:typecheck": "bun run --cwd sample typecheck",
+		"sample:build": "bun run --cwd sample/greeting build",
+		"sample:typecheck": "bun run --cwd sample/greeting typecheck",
 		"prepare": "husky",
-		"sample-mcp:build": "bun run --cwd sample-mcp build",
-		"sample-mcp:typecheck": "bun run --cwd sample-mcp typecheck"
+		"sample:spreadsheet-mcp:build": "bun run --cwd sample/spreadsheet-mcp build",
+		"sample:spreadsheet-mcp:typecheck": "bun run --cwd sample/spreadsheet-mcp typecheck"
 	},
 	"devDependencies": {
 		"@google/clasp": "^3.1.3",

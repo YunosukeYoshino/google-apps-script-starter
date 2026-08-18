@@ -19,7 +19,7 @@
         "vite-plugin-static-copy": "^4.1.0",
       },
     },
-    "sample": {
+    "sample/greeting": {
       "name": "gas-greeting-sample",
       "dependencies": {
         "@base-ui/react": "^1.6.0",
@@ -47,7 +47,7 @@
         "vite-plugin-static-copy": "^4.1.0",
       },
     },
-    "sample-mcp": {
+    "sample/spreadsheet-mcp": {
       "name": "gas-spreadsheet-mcp-sample",
       "dependencies": {
         "@base-ui/react": "^1.6.0",
@@ -546,9 +546,9 @@
 
     "fuzzy": ["fuzzy@0.1.3", "", {}, "sha512-/gZffu4ykarLrCiP3Ygsa86UAo1E5vEVlvTrpkKywXSbP9Xhln3oSp9QSV57gEq3JFFpGJ4GZ+5zdEp3FcUh4w=="],
 
-    "gas-greeting-sample": ["gas-greeting-sample@workspace:sample"],
+    "gas-greeting-sample": ["gas-greeting-sample@workspace:sample/greeting"],
 
-    "gas-spreadsheet-mcp-sample": ["gas-spreadsheet-mcp-sample@workspace:sample-mcp"],
+    "gas-spreadsheet-mcp-sample": ["gas-spreadsheet-mcp-sample@workspace:sample/spreadsheet-mcp"],
 
     "gaxios": ["gaxios@6.7.1", "", { "dependencies": { "extend": "^3.0.2", "https-proxy-agent": "^7.0.1", "is-stream": "^2.0.0", "node-fetch": "^2.6.9", "uuid": "^9.0.1" } }, "sha512-LDODD4TMYx7XXdpwxAVRAIAuB0bzv0s+ywFonY46k126qzQHT9ygyoa9tncmOiQmmDrik65UYsEkv3lbfqQ3yQ=="],
 

@@ -19,8 +19,8 @@ bun run build
 bun run test:smoke
 bun run sample:typecheck
 bun run sample:build
-bun run sample-mcp:typecheck
-bun run sample-mcp:build
+bun run sample:spreadsheet-mcp:typecheck
+bun run sample:spreadsheet-mcp:build
 ```
 
 ## Branching
