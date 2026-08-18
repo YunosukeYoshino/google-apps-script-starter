@@ -215,3 +215,67 @@ describe("Contact API - doPost validation", () => {
 		expect(json.message).toContain("必須項目");
 	});
 });
+
+describe("Contact API - doPost normal flow", () => {
+	test("saves to spreadsheet and sends notification & auto-reply emails", () => {
+		const harness = createApiHarness({
+			properties: {
+				SPREADSHEET_ID: "test-sheet-id",
+				SHEET_NAME: "お問い合わせ",
+				ADMIN_EMAIL: "admin@example.com",
+			},
+		});
+
+		const payload = {
+			name: "山田 太郎",
+			email: "taro@example.com",
+			category: "お見積り",
+			message: "料金プランについて教えてください。",
+		};
+
+		const output = harness.post({
+			postData: { contents: JSON.stringify(payload) },
+		});
+		const json = JSON.parse(output.getContent());
+
+		expect(json.success).toBe(true);
+		expect(json.message).toContain("受け付けました");
+
+		// スプレッドシートの検証
+		const ss = harness.spreadsheets.get("test-sheet-id");
+		expect(ss).toBeDefined();
+		const sheet = ss?.getSheetByName("お問い合わせ");
+		expect(sheet).toBeDefined();
+		expect(sheet?.values.length).toBe(2); // ヘッダー + 1行データ
+		expect(sheet?.values[0]).toEqual([
+			"日時",
+			"お名前",
+			"メールアドレス",
+			"種別",
+			"お問い合わせ内容",
+		]);
+		expect(sheet?.values[1][1]).toBe("山田 太郎");
+		expect(sheet?.values[1][2]).toBe("taro@example.com");
+		expect(sheet?.values[1][3]).toBe("お見積り");
+		expect(sheet?.values[1][4]).toBe("料金プランについて教えてください。");
+
+		// 送信メールの検証
+		expect(harness.sentEmails.length).toBe(2);
+
+		// 管理者向け
+		const adminMail = harness.sentEmails.find(
+			(m) => m.to === "admin@example.com",
+		);
+		expect(adminMail).toBeDefined();
+		expect(adminMail?.subject).toContain("山田 太郎");
+		expect(adminMail?.body).toContain("料金プランについて教えてください。");
+
+		// ユーザー向け自動返信
+		const userMail = harness.sentEmails.find(
+			(m) => m.to === "taro@example.com",
+		);
+		expect(userMail).toBeDefined();
+		expect(userMail?.subject).toContain("自動返信");
+		expect(userMail?.body).toContain("山田 太郎");
+	});
+});

@@ -48,6 +48,7 @@ function doPost(e) {
 
 		const name = String(data.name ?? "").trim();
 		const email = String(data.email ?? "").trim();
+		const category = String(data.category ?? "").trim() || "未指定";
 		const message = String(data.message ?? "").trim();
 
 		if (!name || !email || !message) {
@@ -55,6 +56,65 @@ function doPost(e) {
 				success: false,
 				message: "必須項目（お名前、メールアドレス、メッセージ）が不足しています。",
 			});
+		}
+
+		// 設定値の取得
+		const scriptProperties = PropertiesService.getScriptProperties();
+		const spreadsheetId = scriptProperties.getProperty("SPREADSHEET_ID");
+		const sheetName = scriptProperties.getProperty("SHEET_NAME") || "お問い合わせ";
+		const adminEmail = scriptProperties.getProperty("ADMIN_EMAIL");
+
+		// スプレッドシートへの記録
+		let ss = null;
+		if (spreadsheetId) {
+			ss = SpreadsheetApp.openById(spreadsheetId);
+		} else {
+			try {
+				ss = SpreadsheetApp.getActiveSpreadsheet();
+			} catch (_e) {
+				// 単体Webアプリ等でアクティブシートがない場合はスキップ
+			}
+		}
+
+		const now = new Date();
+		const formattedDate = Utilities.formatDate(now, "Asia/Tokyo", "yyyy/MM/dd HH:mm:ss");
+
+		if (ss) {
+			const sheet = ss.getSheetByName(sheetName) || ss.insertSheet(sheetName);
+			if (sheet.getLastRow() === 0) {
+				sheet.appendRow(["日時", "お名前", "メールアドレス", "種別", "お問い合わせ内容"]);
+			}
+			sheet.appendRow([formattedDate, name, email, category, message]);
+		}
+
+		// 管理者向け通知メール
+		if (adminEmail) {
+			GmailApp.sendEmail(
+				adminEmail,
+				`【お問い合わせ】${name} 様より`,
+				`Webサイトから新しいお問い合わせを受信しました。\n\n` +
+				`■ 日時: ${formattedDate}\n` +
+				`■ お名前: ${name}\n` +
+				`■ メールアドレス: ${email}\n` +
+				`■ 種別: ${category}\n\n` +
+				`■ お問い合わせ内容:\n${message}`,
+			);
+		}
+
+		// ユーザー向け自動返信メール
+		if (email) {
+			GmailApp.sendEmail(
+				email,
+				"【自動返信】お問い合わせを受け付けました",
+				`${name} 様\n\n` +
+				`お問い合わせありがとうございます。以下の内容で受け付けいたしました。\n\n` +
+				`----------------------------------------\n` +
+				`■ お名前: ${name}\n` +
+				`■ 種別: ${category}\n` +
+				`■ お問い合わせ内容:\n${message}\n` +
+				`----------------------------------------\n\n` +
+				`内容を確認の上、担当者より順次ご連絡差し上げます。`,
+			);
 		}
 
 		return createJsonResponse({
