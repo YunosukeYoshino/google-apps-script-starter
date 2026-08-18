@@ -70,7 +70,7 @@ describe("Contact API Client", () => {
 		).rejects.toThrow("HTTP error: 500");
 	});
 
-	test("checkHealth sends GET request and returns health status", async () => {
+	test("checkHealth sends POST ping request and returns health status", async () => {
 		mockFetch.mockResolvedValueOnce(
 			new Response(
 				JSON.stringify({
@@ -91,6 +91,7 @@ describe("Contact API Client", () => {
 		expect(mockFetch).toHaveBeenCalledTimes(1);
 		const [url, options] = mockFetch.mock.calls[0];
 		expect(url).toBe("https://script.google.com/macros/s/TEST/exec");
-		expect(options.method).toBe("GET");
+		expect(options.method).toBe("POST");
+		expect(JSON.parse(options.body)).toEqual({ action: "ping" });
 	});
 });

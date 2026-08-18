@@ -182,6 +182,18 @@ describe("Contact API - doGet", () => {
 });
 
 describe("Contact API - doPost validation", () => {
+	test("returns health check info when action is ping", () => {
+		const harness = createApiHarness();
+		const output = harness.post({
+			postData: { contents: JSON.stringify({ action: "ping" }) },
+		});
+		const json = JSON.parse(output.getContent());
+
+		expect(json.success).toBe(true);
+		expect(json.status).toBe("ok");
+		expect(json.version).toBe("1.0.0");
+	});
+
 	test("returns error when request body is empty", () => {
 		const harness = createApiHarness();
 		const output = harness.post({});

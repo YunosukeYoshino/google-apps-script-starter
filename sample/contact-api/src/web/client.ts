@@ -51,6 +51,7 @@ export async function sendContactForm(
 
 /**
  * GAS Web Appの稼働ステータスとバージョンを確認します。
+ * （ブラウザのGET CORS制限を回避するため POST ping を使用）
  *
  * @param endpointUrl GASのデプロイURL
  * @returns ヘルスチェック結果
@@ -59,7 +60,11 @@ export async function checkHealth(
 	endpointUrl: string,
 ): Promise<ContactApiResponse> {
 	const response = await fetch(endpointUrl, {
-		method: "GET",
+		method: "POST",
+		headers: {
+			"Content-Type": "text/plain;charset=utf-8",
+		},
+		body: JSON.stringify({ action: "ping" }),
 	});
 
 	if (!response.ok) {

@@ -46,6 +46,16 @@ function doPost(e) {
 			});
 		}
 
+		// 疎通確認（Ping）アクション
+		if (data.action === "ping") {
+			return createJsonResponse({
+				success: true,
+				status: "ok",
+				version: "1.0.0",
+				timestamp: new Date().toISOString(),
+			});
+		}
+
 		const name = String(data.name ?? "").trim();
 		const email = String(data.email ?? "").trim();
 		const category = String(data.category ?? "").trim() || "未指定";
