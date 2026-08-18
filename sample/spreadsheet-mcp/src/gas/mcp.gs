@@ -287,7 +287,8 @@ function checkMcpToken_(token) {
 }
 
 /**
- * デプロイ後に共有シークレットとデモ用シートを初期化し、接続URLをログへ表示します。
+ * デプロイ後に共有シークレットとデモ用シートを初期化し、接続URLを返します。
+ * @return {string} Spark接続まで含む接続URL
  */
 function setupMcp_() {
 	const properties = PropertiesService.getScriptProperties();
@@ -297,11 +298,21 @@ function setupMcp_() {
 		properties.setProperty(MCP_TOKEN_PROPERTY_, token);
 	}
 	ensureDemoSpreadsheet_();
-	logMcpConnectionUrl_(token);
+	return logMcpConnectionUrl_(token);
 }
 
 /**
- * 現在の共有シークレットを含むSpark接続URLをログへ表示します。
+ * setupMcp_ を実行して接続URLを返します。アンダースコアで始まる関数は
+ * エディタの関数セレクタに表示されないため、公開用の別名を用意しています。
+ * @return {string} Spark接続まで含む接続URL
+ */
+function setupMcp() {
+	return setupMcp_();
+}
+
+/**
+ * 現在の共有シークレットを含むSpark接続URLを返します。
+ * @return {string} Spark接続まで含む接続URL
  */
 function getMcpConnectionUrl_() {
 	const token =
@@ -309,11 +320,12 @@ function getMcpConnectionUrl_() {
 	if (!token) {
 		throw new Error("先にsetupMcp_を実行してください。");
 	}
-	logMcpConnectionUrl_(token);
+	return logMcpConnectionUrl_(token);
 }
 
 /**
- * 共有シークレットを更新し、新しいSpark接続URLをログへ表示します。
+ * 共有シークレットを更新し、新しいSpark接続URLを返します。
+ * @return {string} Spark接続まで含む接続URL
  */
 function rotateMcpToken_() {
 	const token = Utilities.getUuid() + Utilities.getUuid();
@@ -321,25 +333,24 @@ function rotateMcpToken_() {
 		MCP_TOKEN_PROPERTY_,
 		token,
 	);
-	logMcpConnectionUrl_(token);
+	return logMcpConnectionUrl_(token);
 }
 
 /**
  * @param {string} token 共有シークレット
+ * @return {string} Spark接続まで含む接続URL
  */
 function logMcpConnectionUrl_(token) {
-	Logger.log(
-		"MCP connection URL: " +
-			getMcpBaseUrl_() +
-			"?token=" +
-			encodeURIComponent(token),
-	);
+	const connectionUrl =
+		getMcpBaseUrl_() + "?token=" + encodeURIComponent(token);
+	Logger.log("MCP connection URL: " + connectionUrl);
 	const spreadsheetId = PropertiesService.getScriptProperties().getProperty(
 		MCP_SPREADSHEET_ID_PROPERTY_,
 	);
 	if (spreadsheetId) {
 		Logger.log("Demo spreadsheet ID: " + spreadsheetId);
 	}
+	return connectionUrl;
 }
 
 /**
