@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.3.0](https://github.com/YunosukeYoshino/google-apps-script-starter/compare/v1.2.3...v1.3.0) (2026-08-19)
+
+
+### Features
+
+* add optional Gemini Spark MCP adapter ([c200360](https://github.com/YunosukeYoshino/google-apps-script-starter/commit/c20036054b915d3f55c5f0428e3018f4b617dc39))
+* add Spreadsheet MCP sample app ([13e7760](https://github.com/YunosukeYoshino/google-apps-script-starter/commit/13e7760c5c7353628e19e27f53ec5d47ab54203c))
+* **sample:** add client-side sendContactForm utility ([895a938](https://github.com/YunosukeYoshino/google-apps-script-starter/commit/895a93810ea465874f5cd4fd2acc56f9b80fbfe6))
+* **sample:** add Cloudflare Turnstile verification to contact-api ([f631d6e](https://github.com/YunosukeYoshino/google-apps-script-starter/commit/f631d6ea7dfb600ceb34a223c19721fd99424123))
+* **sample:** add contact-api sample app with test UI and documentation ([f0305d7](https://github.com/YunosukeYoshino/google-apps-script-starter/commit/f0305d7222f93c531b72eb736803fcfdafe38b8e))
+* **sample:** add doGet health check endpoint in contact-api ([8266b47](https://github.com/YunosukeYoshino/google-apps-script-starter/commit/8266b470c223822b7fab7310d48599a12207318e))
+* **sample:** add honeypot spam protection in contact-api ([ae17065](https://github.com/YunosukeYoshino/google-apps-script-starter/commit/ae17065e8db4d1c75f12b6ea6dc72e41f4e66e87))
+* **sample:** add request validation to doPost in contact-api ([b52e886](https://github.com/YunosukeYoshino/google-apps-script-starter/commit/b52e8867d785b2eb2bf3caac5799061a4e2ceea1))
+* **sample:** implement spreadsheet logging and email notifications in contact-api ([5119d06](https://github.com/YunosukeYoshino/google-apps-script-starter/commit/5119d0666e9c358767e6573406ad317e4b3efb02))
+
+
+### Bug Fixes
+
+* align clasp 3.3.0 commands in docs and CLI scaffolding ([0ad52c1](https://github.com/YunosukeYoshino/google-apps-script-starter/commit/0ad52c1f364e24bdcc1aed61addfbdbf3bb7b99a))
+* expose setupMcp in template and align MCP setup docs ([fcc2e69](https://github.com/YunosukeYoshino/google-apps-script-starter/commit/fcc2e6971fd762dd1931144d7b727e827acdc708))
+* make setupMcp runnable from the Apps Script editor ([dc19d5c](https://github.com/YunosukeYoshino/google-apps-script-starter/commit/dc19d5c93fd3860d4bbb15e6d7e440983aa54662))
+* **sample:** improve URL placeholder validation and guidance in test UI ([f4ca6a7](https://github.com/YunosukeYoshino/google-apps-script-starter/commit/f4ca6a7d34d2af65105ce2f2734f84d745258bd3))
+* **sample:** set webapp access to ANYONE_ANONYMOUS and support POST ping health check ([d4b2dee](https://github.com/YunosukeYoshino/google-apps-script-starter/commit/d4b2deed151f5297d6b9906396403f71528fa87c))
+
 ## [1.2.3](https://github.com/YunosukeYoshino/google-apps-script-starter/compare/v1.2.2...v1.2.3) (2026-08-10)
 
 
